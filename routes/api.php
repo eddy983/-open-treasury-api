@@ -22,7 +22,7 @@ Route::get('/documentation', function(){
     return view("apidoc.index");
 });
 Route::get('/collection.json', function(){
-    return Storage::download('apidoc/collection.json');
+    return Storage::disk('local')->download('apidoc/collection.json');
 })->name("apidoc.json");
 
 Route::post('auth/register', 'Auth\RegisterController@register');
