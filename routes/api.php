@@ -18,6 +18,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/documentation', function(){
+    return view("apidoc.index");
+});
+Route::get('/collection.json', function(){
+    return Storage::download('apidoc/collection.json');
+})->name("apidoc.json");
 
 Route::post('auth/register', 'Auth\RegisterController@register');
 Route::post('auth/login', 'Auth\LoginController@login')->name('login');
@@ -41,6 +47,9 @@ Route::group([
     'prefix' => 'treasury'
 
 ], function ($router) {
-    Route::get('/', 'TreasuryController@get'); 
+    // Route::get('/', 'TreasuryController@get'); 
+    Route::resource('','TreasuryController', [
+        'only' => ['index', 'update', 'store', 'destroy']
+    ]);
 
 });
