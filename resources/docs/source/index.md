@@ -2,7 +2,6 @@
 title: API Reference
 
 language_tabs:
-- bash
 - javascript
 
 includes:
@@ -16,7 +15,7 @@ toc_footers:
 # Info
 
 Welcome to the generated API reference.
-[Get Postman Collection](http://localhost/docs/collection.json)
+[Get Postman Collection](http://localhost:8000/docs/collection.json)
 
 <!-- END_INFO -->
 
@@ -27,16 +26,9 @@ Welcome to the generated API reference.
 ## api/auth/register
 > Example request:
 
-```bash
-curl -X POST \
-    "http://localhost/api/auth/register" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
 ```javascript
 const url = new URL(
-    "http://localhost/api/auth/register"
+    "http://localhost:8000/api/auth/register"
 );
 
 let headers = {
@@ -65,16 +57,9 @@ fetch(url, {
 
 > Example request:
 
-```bash
-curl -X POST \
-    "http://localhost/api/auth/login" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
 ```javascript
 const url = new URL(
-    "http://localhost/api/auth/login"
+    "http://localhost:8000/api/auth/login"
 );
 
 let headers = {
@@ -103,16 +88,9 @@ fetch(url, {
 
 > Example request:
 
-```bash
-curl -X POST \
-    "http://localhost/api/auth/logout" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
 ```javascript
 const url = new URL(
-    "http://localhost/api/auth/logout"
+    "http://localhost:8000/api/auth/logout"
 );
 
 let headers = {
@@ -141,16 +119,9 @@ fetch(url, {
 
 > Example request:
 
-```bash
-curl -X POST \
-    "http://localhost/api/auth/refresh" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
 ```javascript
 const url = new URL(
-    "http://localhost/api/auth/refresh"
+    "http://localhost:8000/api/auth/refresh"
 );
 
 let headers = {
@@ -179,16 +150,9 @@ fetch(url, {
 
 > Example request:
 
-```bash
-curl -X POST \
-    "http://localhost/api/auth/me" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
 ```javascript
 const url = new URL(
-    "http://localhost/api/auth/me"
+    "http://localhost:8000/api/auth/me"
 );
 
 let headers = {
@@ -219,20 +183,13 @@ Shows a paginated list of payments
 
 > Example request:
 
-```bash
-curl -X GET \
-    -G "http://localhost/api/treasury?count=7" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
 ```javascript
 const url = new URL(
-    "http://localhost/api/treasury"
+    "http://localhost:8000/api/treasury"
 );
 
 let params = {
-    "count": "7",
+    "count": "17",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -461,18 +418,9 @@ Store a new Treasury payment  record
 
 > Example request:
 
-```bash
-curl -X POST \
-    "http://localhost/api/treasury" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d '{"date":"deserunt","payment_number":"aut","payer_code":"libero","mother_ministry":"similique","organization_name":"odit","beneficiary_name":"non","amount":"culpa","description":"iusto","irregularities":"et"}'
-
-```
-
 ```javascript
 const url = new URL(
-    "http://localhost/api/treasury"
+    "http://localhost:8000/api/treasury"
 );
 
 let headers = {
@@ -481,15 +429,15 @@ let headers = {
 };
 
 let body = {
-    "date": "deserunt",
+    "date": "saepe",
     "payment_number": "aut",
-    "payer_code": "libero",
-    "mother_ministry": "similique",
-    "organization_name": "odit",
-    "beneficiary_name": "non",
-    "amount": "culpa",
+    "payer_code": "possimus",
+    "mother_ministry": "dolorum",
+    "organization_name": "facere",
+    "beneficiary_name": "dicta",
+    "amount": "qui",
     "description": "iusto",
-    "irregularities": "et"
+    "irregularities": "sint"
 }
 
 fetch(url, {
@@ -528,18 +476,9 @@ Update a treasury payment record with specified ID
 
 > Example request:
 
-```bash
-curl -X PUT \
-    "http://localhost/api/treasury/{}" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d '{"date":"ut","payment_number":"vitae","payer_code":"enim","mother_ministry":"dolores","organization_name":"et","beneficiary_name":"enim","amount":"voluptas","description":"et","irregularities":"eligendi"}'
-
-```
-
 ```javascript
 const url = new URL(
-    "http://localhost/api/treasury/{}"
+    "http://localhost:8000/api/treasury/{}"
 );
 
 let headers = {
@@ -548,15 +487,15 @@ let headers = {
 };
 
 let body = {
-    "date": "ut",
-    "payment_number": "vitae",
-    "payer_code": "enim",
-    "mother_ministry": "dolores",
-    "organization_name": "et",
-    "beneficiary_name": "enim",
-    "amount": "voluptas",
-    "description": "et",
-    "irregularities": "eligendi"
+    "date": "qui",
+    "payment_number": "qui",
+    "payer_code": "in",
+    "mother_ministry": "amet",
+    "organization_name": "tempore",
+    "beneficiary_name": "vel",
+    "amount": "velit",
+    "description": "aut",
+    "irregularities": "a"
 }
 
 fetch(url, {
@@ -602,16 +541,9 @@ Delete a treasury payment record with specified ID
 
 > Example request:
 
-```bash
-curl -X DELETE \
-    "http://localhost/api/treasury/{}" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"
-```
-
 ```javascript
 const url = new URL(
-    "http://localhost/api/treasury/{}"
+    "http://localhost:8000/api/treasury/{}"
 );
 
 let headers = {
