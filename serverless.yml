@@ -8,6 +8,7 @@ provider:
     logs:
         restApi: true
     environment:
+        APP_URL: 'https://d2et15o44d14mb.cloudfront.net'
         APP_KEY: ${ssm:/personalised_platform/APP_KEY}
         APP_DEBUG: 'false'
         JWT_SECRET: '9gEdta11ITeum3WoQkzs6dEhbAmGYmFT23jBIUtsM1DMGH4fd7iDMCyhXhnZgxY1'
