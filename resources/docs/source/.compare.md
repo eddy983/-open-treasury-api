@@ -221,7 +221,7 @@ Shows a paginated list of payments
 
 ```bash
 curl -X GET \
-    -G "http://localhost/api/treasury?count=4" \
+    -G "http://localhost/api/treasury?count=7" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
@@ -232,7 +232,7 @@ const url = new URL(
 );
 
 let params = {
-    "count": "4",
+    "count": "7",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -466,7 +466,7 @@ curl -X POST \
     "http://localhost/api/treasury" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"date":"officiis","payment_number":"atque","payer_code":"maiores","mother_ministry":"vel","organization_name":"quidem","beneficiary_name":"blanditiis","amount":"velit","description":"delectus","irregularities":"suscipit"}'
+    -d '{"date":"deserunt","payment_number":"aut","payer_code":"libero","mother_ministry":"similique","organization_name":"odit","beneficiary_name":"non","amount":"culpa","description":"iusto","irregularities":"et"}'
 
 ```
 
@@ -481,15 +481,15 @@ let headers = {
 };
 
 let body = {
-    "date": "officiis",
-    "payment_number": "atque",
-    "payer_code": "maiores",
-    "mother_ministry": "vel",
-    "organization_name": "quidem",
-    "beneficiary_name": "blanditiis",
-    "amount": "velit",
-    "description": "delectus",
-    "irregularities": "suscipit"
+    "date": "deserunt",
+    "payment_number": "aut",
+    "payer_code": "libero",
+    "mother_ministry": "similique",
+    "organization_name": "odit",
+    "beneficiary_name": "non",
+    "amount": "culpa",
+    "description": "iusto",
+    "irregularities": "et"
 }
 
 fetch(url, {
@@ -532,7 +532,9 @@ Update a treasury payment record with specified ID
 curl -X PUT \
     "http://localhost/api/treasury/{}" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"
+    -H "Accept: application/json" \
+    -d '{"date":"ut","payment_number":"vitae","payer_code":"enim","mother_ministry":"dolores","organization_name":"et","beneficiary_name":"enim","amount":"voluptas","description":"et","irregularities":"eligendi"}'
+
 ```
 
 ```javascript
@@ -545,9 +547,22 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "date": "ut",
+    "payment_number": "vitae",
+    "payer_code": "enim",
+    "mother_ministry": "dolores",
+    "organization_name": "et",
+    "beneficiary_name": "enim",
+    "amount": "voluptas",
+    "description": "et",
+    "irregularities": "eligendi"
+}
+
 fetch(url, {
     method: "PUT",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -564,8 +579,20 @@ fetch(url, {
 
 Parameter | Status | Description
 --------- | ------- | ------- | -------
-    `id` |  required  | The ID of the post /{id}.
-
+    `id` |  required  | The ID of the treasury record /{id}.
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `date` | string |  required  | The date of the payment.
+        `payment_number` | string |  required  | The payment number.
+        `payer_code` | string |  required  | The Payer Code.
+        `mother_ministry` | string |  required  | The Mother Ministry.
+        `organization_name` | string |  required  | The Organization Name.
+        `beneficiary_name` | string |  required  | The Organization Name.
+        `amount` | string |  required  | The Amount Paid.
+        `description` | string |  required  | The Payment Description.
+        `irregularities` | string |  required  | The Irregularities.
+    
 <!-- END_b3e1d61d3e787a654fa7d95391d267ef -->
 
 <!-- START_53b19d66da8141ad5c4d769f82eaae06 -->
@@ -609,7 +636,7 @@ fetch(url, {
 
 Parameter | Status | Description
 --------- | ------- | ------- | -------
-    `id` |  required  | The ID of the post /{id}.
+    `id` |  required  | The ID of the treasury record /{id}.
 
 <!-- END_53b19d66da8141ad5c4d769f82eaae06 -->
 

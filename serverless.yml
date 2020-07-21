@@ -24,7 +24,7 @@ provider:
         DB_DATABASE: ${ssm:/personalised_platform/DB_DATABASE}
         DB_USERNAME: ${ssm:/personalised_platform/DB_USERNAME}
         DB_PASSWORD: ${ssm:/personalised_platform/DB_PASSWORD}
-        MIX_ASSET_URL: ${ssm:/personalised_platform/MIX_ASSET_URL} 
+        MIX_ASSET_URL: 'https://open-treasury-assets.s3.eu-west-2.amazonaws.com' 
         MAIL_MAILER: 'smtp'
         MAIL_HOST: 'email-smtp.eu-west-2.amazonaws.com'
         MAIL_PORT: '587'

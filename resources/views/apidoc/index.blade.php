@@ -191,7 +191,7 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/api/treasury?count=4" \
+    -G "http://localhost/api/treasury?count=7" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
@@ -199,7 +199,7 @@ fetch(url, {
 );
 
 let params = {
-    "count": "4",
+    "count": "7",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -435,7 +435,7 @@ fetch(url, {
     "http://localhost/api/treasury" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"date":"officiis","payment_number":"atque","payer_code":"maiores","mother_ministry":"vel","organization_name":"quidem","beneficiary_name":"blanditiis","amount":"velit","description":"delectus","irregularities":"suscipit"}'
+    -d '{"date":"deserunt","payment_number":"aut","payer_code":"libero","mother_ministry":"similique","organization_name":"odit","beneficiary_name":"non","amount":"culpa","description":"iusto","irregularities":"et"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://localhost/api/treasury"
@@ -447,15 +447,15 @@ let headers = {
 };
 
 let body = {
-    "date": "officiis",
-    "payment_number": "atque",
-    "payer_code": "maiores",
-    "mother_ministry": "vel",
-    "organization_name": "quidem",
-    "beneficiary_name": "blanditiis",
-    "amount": "velit",
-    "description": "delectus",
-    "irregularities": "suscipit"
+    "date": "deserunt",
+    "payment_number": "aut",
+    "payer_code": "libero",
+    "mother_ministry": "similique",
+    "organization_name": "odit",
+    "beneficiary_name": "non",
+    "amount": "culpa",
+    "description": "iusto",
+    "irregularities": "et"
 }
 
 fetch(url, {
@@ -544,7 +544,9 @@ fetch(url, {
 <pre><code class="language-bash">curl -X PUT \
     "http://localhost/api/treasury/{}" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
+    -H "Accept: application/json" \
+    -d '{"date":"ut","payment_number":"vitae","payer_code":"enim","mother_ministry":"dolores","organization_name":"et","beneficiary_name":"enim","amount":"voluptas","description":"et","irregularities":"eligendi"}'
+</code></pre>
 <pre><code class="language-javascript">const url = new URL(
     "http://localhost/api/treasury/{}"
 );
@@ -554,9 +556,22 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "date": "ut",
+    "payment_number": "vitae",
+    "payer_code": "enim",
+    "mother_ministry": "dolores",
+    "organization_name": "et",
+    "beneficiary_name": "enim",
+    "amount": "voluptas",
+    "description": "et",
+    "irregularities": "eligendi"
+}
+
 fetch(url, {
     method: "PUT",
     headers: headers,
+    body: body
 })
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
@@ -576,7 +591,74 @@ fetch(url, {
 <tr>
 <td><code>id</code></td>
 <td>required</td>
-<td>The ID of the post /{id}.</td>
+<td>The ID of the treasury record /{id}.</td>
+</tr>
+</tbody>
+</table>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>date</code></td>
+<td>string</td>
+<td>required</td>
+<td>The date of the payment.</td>
+</tr>
+<tr>
+<td><code>payment_number</code></td>
+<td>string</td>
+<td>required</td>
+<td>The payment number.</td>
+</tr>
+<tr>
+<td><code>payer_code</code></td>
+<td>string</td>
+<td>required</td>
+<td>The Payer Code.</td>
+</tr>
+<tr>
+<td><code>mother_ministry</code></td>
+<td>string</td>
+<td>required</td>
+<td>The Mother Ministry.</td>
+</tr>
+<tr>
+<td><code>organization_name</code></td>
+<td>string</td>
+<td>required</td>
+<td>The Organization Name.</td>
+</tr>
+<tr>
+<td><code>beneficiary_name</code></td>
+<td>string</td>
+<td>required</td>
+<td>The Organization Name.</td>
+</tr>
+<tr>
+<td><code>amount</code></td>
+<td>string</td>
+<td>required</td>
+<td>The Amount Paid.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>string</td>
+<td>required</td>
+<td>The Payment Description.</td>
+</tr>
+<tr>
+<td><code>irregularities</code></td>
+<td>string</td>
+<td>required</td>
+<td>The Irregularities.</td>
 </tr>
 </tbody>
 </table>
@@ -621,7 +703,7 @@ fetch(url, {
 <tr>
 <td><code>id</code></td>
 <td>required</td>
-<td>The ID of the post /{id}.</td>
+<td>The ID of the treasury record /{id}.</td>
 </tr>
 </tbody>
 </table>
