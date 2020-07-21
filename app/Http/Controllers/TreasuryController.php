@@ -44,11 +44,11 @@ class TreasuryController extends Controller
      * 
      * @bodyParam  date string required The date of the payment.
      * @bodyParam  payment_number string required The payment number.
-     * @bodyParam  payer_code string required The Payer Code.
+     * @bodyParam  payer_code int required The Payer Code.
      * @bodyParam  mother_ministry string required The Mother Ministry.
      * @bodyParam  organization_name string required The Organization Name.
      * @bodyParam  beneficiary_name string required The Organization Name.
-     * @bodyParam  amount string required The Amount Paid.
+     * @bodyParam  amount int required The Amount Paid.
      * @bodyParam  description string required The Payment Description.
      * @bodyParam  irregularities string required The Irregularities.
      *
@@ -58,25 +58,51 @@ class TreasuryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'detail' => 'required',
+            'date' => 'required|date_format:Y-m-d',
+            'payment_number' => 'required',
+            'payer_code' => 'required|integer',
+            'mother_ministry' => 'required',
+            'organization_name' => 'required',
+            'beneficiary_name' => 'required',
+            'description' => 'required',
+            'irregularities' => 'required',
+            'amount' => 'required|integer',
         ]);
   
+        $date = \Carbon\Carbon::createFromFormat("Y-m-d", $request->date);
         $treasury = new Treasury($request->all());
+        $treasury->day = $date->day;
+        $treasury->month = $date->month;
+        $treasury->year = $date->year;
+
+
+        $treasury->save();
    
         return response()
                 ->json(compact("treasury"));
     }
 
     /**
-     * Display the specified resource.
+     * Get a single treasury record.
+     * 
+     * @urlParam  id required The ID of the treasury record /{id}.
      *
      * @param  \App\Treasury  $treasury
      * @return \Illuminate\Http\Response
      */
-    public function show(Treasury $treasury)
+    public function show(int $id)
     {
-        //
+        $treasury = Treasury::find($id);
+
+        if(!$treasury){
+            return response()
+                    ->json([
+                        "message" => "Treasury record with ID ({$id}) doesnt exist"
+                    ], 404);
+        }
+         
+        return response()
+                ->json(compact("treasury"));
     }
 
     /**
@@ -99,11 +125,11 @@ class TreasuryController extends Controller
      * 
      * @bodyParam  date string required The date of the payment.
      * @bodyParam  payment_number string required The payment number.
-     * @bodyParam  payer_code string required The Payer Code.
+     * @bodyParam  payer_code int required The Payer Code.
      * @bodyParam  mother_ministry string required The Mother Ministry.
      * @bodyParam  organization_name string required The Organization Name.
      * @bodyParam  beneficiary_name string required The Organization Name.
-     * @bodyParam  amount string required The Amount Paid.
+     * @bodyParam  amount int required The Amount Paid.
      * @bodyParam  description string required The Payment Description.
      * @bodyParam  irregularities string required The Irregularities.
      *
@@ -111,15 +137,35 @@ class TreasuryController extends Controller
      * @param  \App\Treasury  $treasury
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Treasury $treasury)
+    public function update(Request $request, int $id)
     {
         $request->validate([
-            'name' => 'required',
-            'detail' => 'required',
+            'date' => 'required|date_format:Y-m-d',
+            'payment_number' => 'required',
+            'payer_code' => 'required|integer',
+            'mother_ministry' => 'required',
+            'organization_name' => 'required',
+            'beneficiary_name' => 'required',
+            'description' => 'required',
+            'irregularities' => 'required',
+            'amount' => 'required|integer',
         ]);
+
+        $treasury = Treasury::find($id);
+        
+        if(!$treasury){
+            return response()
+                    ->json([
+                        "message" => "Treasury record with ID ({$id}) doesnt exist"
+                    ], 404);
+        } 
+        $date = \Carbon\Carbon::createFromFormat("Y-m-d", $request->date);
+        //$treasury = new Treasury($request->all());
+        $request["day"] = $date->day;
+        $request["month"] = $date->month;
+        $request["year"] = $date->year;
   
-        $treasury->update($request->all());
-   
+        $treasury->update($request->all()); 
         return response()
                 ->json(compact("treasury"));
     }
@@ -134,13 +180,22 @@ class TreasuryController extends Controller
      * @param  \App\Treasury  $treasury
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Treasury $treasury)
-    {
+    public function destroy(int $id)
+    { 
+        $treasury = Treasury::find($id);
+
+        if(!$treasury){
+            return response()
+                    ->json([
+                        "message" => "Treasury record with ID ({$id}) doesnt exist"
+                    ], 404);
+        }
+        
         $treasury->delete();
   
         return response()
                 ->json([
-                    "message" => "Treasury record deleted"
+                    "message" => "Treasury record with id {$treasury->id} deleted"
                 ]);
     }
 }

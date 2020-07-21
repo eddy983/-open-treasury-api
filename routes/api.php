@@ -49,7 +49,10 @@ Route::group([
 ], function ($router) {
     // Route::get('/', 'TreasuryController@get'); 
     Route::resource('','TreasuryController', [
-        'only' => ['index', 'update', 'store', 'destroy']
+        'only' => ['index', 'store']
     ]);
+    Route::delete('/{id}', 'TreasuryController@destroy');
+    Route::get('/{id}', 'TreasuryController@show');
+    Route::put('/{id}', 'TreasuryController@update');
 
 });

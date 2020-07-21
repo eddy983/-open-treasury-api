@@ -189,7 +189,7 @@ const url = new URL(
 );
 
 let params = {
-    "count": "17",
+    "count": "7",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -388,14 +388,14 @@ fetch(url, {
         ],
         "first_page_url": "http:\/\/localhost\/api\/treasury?page=1",
         "from": 1,
-        "last_page": 9974,
-        "last_page_url": "http:\/\/localhost\/api\/treasury?page=9974",
+        "last_page": 9975,
+        "last_page_url": "http:\/\/localhost\/api\/treasury?page=9975",
         "next_page_url": "http:\/\/localhost\/api\/treasury?page=2",
         "path": "http:\/\/localhost\/api\/treasury",
         "per_page": 10,
         "prev_page_url": null,
         "to": 10,
-        "total": 99740
+        "total": 99742
     }
 }
 ```
@@ -429,15 +429,15 @@ let headers = {
 };
 
 let body = {
-    "date": "saepe",
-    "payment_number": "aut",
-    "payer_code": "possimus",
-    "mother_ministry": "dolorum",
-    "organization_name": "facere",
-    "beneficiary_name": "dicta",
-    "amount": "qui",
-    "description": "iusto",
-    "irregularities": "sint"
+    "date": "hic",
+    "payment_number": "voluptatem",
+    "payer_code": 5,
+    "mother_ministry": "unde",
+    "organization_name": "quaerat",
+    "beneficiary_name": "harum",
+    "amount": 2,
+    "description": "fuga",
+    "irregularities": "non"
 }
 
 fetch(url, {
@@ -459,82 +459,17 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     `date` | string |  required  | The date of the payment.
         `payment_number` | string |  required  | The payment number.
-        `payer_code` | string |  required  | The Payer Code.
+        `payer_code` | integer |  required  | The Payer Code.
         `mother_ministry` | string |  required  | The Mother Ministry.
         `organization_name` | string |  required  | The Organization Name.
         `beneficiary_name` | string |  required  | The Organization Name.
-        `amount` | string |  required  | The Amount Paid.
+        `amount` | integer |  required  | The Amount Paid.
         `description` | string |  required  | The Payment Description.
         `irregularities` | string |  required  | The Irregularities.
     
 <!-- END_a6dda7fc13b5d078d1b0e4857c5b9cd3 -->
 
-<!-- START_b3e1d61d3e787a654fa7d95391d267ef -->
-## Update a Treasury Record
-
-Update a treasury payment record with specified ID
-
-> Example request:
-
-```javascript
-const url = new URL(
-    "http://localhost:8000/api/treasury/{}"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "date": "qui",
-    "payment_number": "qui",
-    "payer_code": "in",
-    "mother_ministry": "amet",
-    "organization_name": "tempore",
-    "beneficiary_name": "vel",
-    "amount": "velit",
-    "description": "aut",
-    "irregularities": "a"
-}
-
-fetch(url, {
-    method: "PUT",
-    headers: headers,
-    body: body
-})
-    .then(response => response.json())
-    .then(json => console.log(json));
-```
-
-
-
-### HTTP Request
-`PUT api/treasury/{}`
-
-`PATCH api/treasury/{}`
-
-#### URL Parameters
-
-Parameter | Status | Description
---------- | ------- | ------- | -------
-    `id` |  required  | The ID of the treasury record /{id}.
-#### Body Parameters
-Parameter | Type | Status | Description
---------- | ------- | ------- | ------- | -----------
-    `date` | string |  required  | The date of the payment.
-        `payment_number` | string |  required  | The payment number.
-        `payer_code` | string |  required  | The Payer Code.
-        `mother_ministry` | string |  required  | The Mother Ministry.
-        `organization_name` | string |  required  | The Organization Name.
-        `beneficiary_name` | string |  required  | The Organization Name.
-        `amount` | string |  required  | The Amount Paid.
-        `description` | string |  required  | The Payment Description.
-        `irregularities` | string |  required  | The Irregularities.
-    
-<!-- END_b3e1d61d3e787a654fa7d95391d267ef -->
-
-<!-- START_53b19d66da8141ad5c4d769f82eaae06 -->
+<!-- START_277d091d9cc2a290cda3e75048f53673 -->
 ## Delete a Treasury Record
 
 Delete a treasury payment record with specified ID
@@ -543,7 +478,7 @@ Delete a treasury payment record with specified ID
 
 ```javascript
 const url = new URL(
-    "http://localhost:8000/api/treasury/{}"
+    "http://localhost:8000/api/treasury/et"
 );
 
 let headers = {
@@ -562,7 +497,7 @@ fetch(url, {
 
 
 ### HTTP Request
-`DELETE api/treasury/{}`
+`DELETE api/treasury/{id}`
 
 #### URL Parameters
 
@@ -570,6 +505,123 @@ Parameter | Status | Description
 --------- | ------- | ------- | -------
     `id` |  required  | The ID of the treasury record /{id}.
 
-<!-- END_53b19d66da8141ad5c4d769f82eaae06 -->
+<!-- END_277d091d9cc2a290cda3e75048f53673 -->
+
+<!-- START_28c7b7795dead597eef42bd1e502375f -->
+## Display the specified resource.
+
+> Example request:
+
+```javascript
+const url = new URL(
+    "http://localhost:8000/api/treasury/1"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (200):
+
+```json
+{
+    "treasury": {
+        "id": 1,
+        "date": "2018-09-30 00:00:00",
+        "day": "30",
+        "month": "09",
+        "year": 2018,
+        "payment_number": "1000513412-10",
+        "payer_code": 116005001,
+        "mother_ministry": "MINISTRY OF DEFENCE",
+        "organization_name": "NIGERIAN AIRFORCE",
+        "beneficiary_name": "NAF 330 NAF STATION",
+        "amount": 92692172.680000007152557373046875,
+        "description": "Sep 18 PE",
+        "irregularities": "",
+        "created_at": "2020-06-08T12:30:13.000000Z",
+        "updated_at": "2020-06-08T12:30:13.000000Z"
+    }
+}
+```
+
+### HTTP Request
+`GET api/treasury/{id}`
+
+
+<!-- END_28c7b7795dead597eef42bd1e502375f -->
+
+<!-- START_aa618d7138b31542c5d0099fc7dcec2d -->
+## Update a Treasury Record
+
+Update a treasury payment record with specified ID
+
+> Example request:
+
+```javascript
+const url = new URL(
+    "http://localhost:8000/api/treasury/ut"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "date": "est",
+    "payment_number": "modi",
+    "payer_code": 5,
+    "mother_ministry": "nihil",
+    "organization_name": "quas",
+    "beneficiary_name": "et",
+    "amount": 4,
+    "description": "dolor",
+    "irregularities": "voluptatem"
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+    body: body
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+
+### HTTP Request
+`PUT api/treasury/{id}`
+
+#### URL Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -------
+    `id` |  required  | The ID of the treasury record /{id}.
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `date` | string |  required  | The date of the payment.
+        `payment_number` | string |  required  | The payment number.
+        `payer_code` | integer |  required  | The Payer Code.
+        `mother_ministry` | string |  required  | The Mother Ministry.
+        `organization_name` | string |  required  | The Organization Name.
+        `beneficiary_name` | string |  required  | The Organization Name.
+        `amount` | integer |  required  | The Amount Paid.
+        `description` | string |  required  | The Payment Description.
+        `irregularities` | string |  required  | The Irregularities.
+    
+<!-- END_aa618d7138b31542c5d0099fc7dcec2d -->
 
 

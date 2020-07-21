@@ -174,7 +174,7 @@ fetch(url, {
 );
 
 let params = {
-    "count": "17",
+    "count": "7",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -370,14 +370,14 @@ fetch(url, {
         ],
         "first_page_url": "http:\/\/localhost\/api\/treasury?page=1",
         "from": 1,
-        "last_page": 9974,
-        "last_page_url": "http:\/\/localhost\/api\/treasury?page=9974",
+        "last_page": 9975,
+        "last_page_url": "http:\/\/localhost\/api\/treasury?page=9975",
         "next_page_url": "http:\/\/localhost\/api\/treasury?page=2",
         "path": "http:\/\/localhost\/api\/treasury",
         "per_page": 10,
         "prev_page_url": null,
         "to": 10,
-        "total": 99740
+        "total": 99742
     }
 }</code></pre>
 <h3>HTTP Request</h3>
@@ -416,15 +416,15 @@ let headers = {
 };
 
 let body = {
-    "date": "saepe",
-    "payment_number": "aut",
-    "payer_code": "possimus",
-    "mother_ministry": "dolorum",
-    "organization_name": "facere",
-    "beneficiary_name": "dicta",
-    "amount": "qui",
-    "description": "iusto",
-    "irregularities": "sint"
+    "date": "hic",
+    "payment_number": "voluptatem",
+    "payer_code": 5,
+    "mother_ministry": "unde",
+    "organization_name": "quaerat",
+    "beneficiary_name": "harum",
+    "amount": 2,
+    "description": "fuga",
+    "irregularities": "non"
 }
 
 fetch(url, {
@@ -461,7 +461,7 @@ fetch(url, {
 </tr>
 <tr>
 <td><code>payer_code</code></td>
-<td>string</td>
+<td>integer</td>
 <td>required</td>
 <td>The Payer Code.</td>
 </tr>
@@ -485,7 +485,7 @@ fetch(url, {
 </tr>
 <tr>
 <td><code>amount</code></td>
-<td>string</td>
+<td>integer</td>
 <td>required</td>
 <td>The Amount Paid.</td>
 </tr>
@@ -504,14 +504,100 @@ fetch(url, {
 </tbody>
 </table>
 <!-- END_a6dda7fc13b5d078d1b0e4857c5b9cd3 -->
-<!-- START_b3e1d61d3e787a654fa7d95391d267ef -->
+<!-- START_277d091d9cc2a290cda3e75048f53673 -->
+<h2>Delete a Treasury Record</h2>
+<p>Delete a treasury payment record with specified ID</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/api/treasury/et"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>DELETE api/treasury/{id}</code></p>
+<h4>URL Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>required</td>
+<td>The ID of the treasury record /{id}.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_277d091d9cc2a290cda3e75048f53673 -->
+<!-- START_28c7b7795dead597eef42bd1e502375f -->
+<h2>Display the specified resource.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost:8000/api/treasury/1"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "treasury": {
+        "id": 1,
+        "date": "2018-09-30 00:00:00",
+        "day": "30",
+        "month": "09",
+        "year": 2018,
+        "payment_number": "1000513412-10",
+        "payer_code": 116005001,
+        "mother_ministry": "MINISTRY OF DEFENCE",
+        "organization_name": "NIGERIAN AIRFORCE",
+        "beneficiary_name": "NAF 330 NAF STATION",
+        "amount": 92692172.680000007152557373046875,
+        "description": "Sep 18 PE",
+        "irregularities": "",
+        "created_at": "2020-06-08T12:30:13.000000Z",
+        "updated_at": "2020-06-08T12:30:13.000000Z"
+    }
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/treasury/{id}</code></p>
+<!-- END_28c7b7795dead597eef42bd1e502375f -->
+<!-- START_aa618d7138b31542c5d0099fc7dcec2d -->
 <h2>Update a Treasury Record</h2>
 <p>Update a treasury payment record with specified ID</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/treasury/{}"
+    "http://localhost:8000/api/treasury/ut"
 );
 
 let headers = {
@@ -520,15 +606,15 @@ let headers = {
 };
 
 let body = {
-    "date": "qui",
-    "payment_number": "qui",
-    "payer_code": "in",
-    "mother_ministry": "amet",
-    "organization_name": "tempore",
-    "beneficiary_name": "vel",
-    "amount": "velit",
-    "description": "aut",
-    "irregularities": "a"
+    "date": "est",
+    "payment_number": "modi",
+    "payer_code": 5,
+    "mother_ministry": "nihil",
+    "organization_name": "quas",
+    "beneficiary_name": "et",
+    "amount": 4,
+    "description": "dolor",
+    "irregularities": "voluptatem"
 }
 
 fetch(url, {
@@ -539,8 +625,7 @@ fetch(url, {
     .then(response =&gt; response.json())
     .then(json =&gt; console.log(json));</code></pre>
 <h3>HTTP Request</h3>
-<p><code>PUT api/treasury/{}</code></p>
-<p><code>PATCH api/treasury/{}</code></p>
+<p><code>PUT api/treasury/{id}</code></p>
 <h4>URL Parameters</h4>
 <table>
 <thead>
@@ -583,7 +668,7 @@ fetch(url, {
 </tr>
 <tr>
 <td><code>payer_code</code></td>
-<td>string</td>
+<td>integer</td>
 <td>required</td>
 <td>The Payer Code.</td>
 </tr>
@@ -607,7 +692,7 @@ fetch(url, {
 </tr>
 <tr>
 <td><code>amount</code></td>
-<td>string</td>
+<td>integer</td>
 <td>required</td>
 <td>The Amount Paid.</td>
 </tr>
@@ -625,48 +710,7 @@ fetch(url, {
 </tr>
 </tbody>
 </table>
-<!-- END_b3e1d61d3e787a654fa7d95391d267ef -->
-<!-- START_53b19d66da8141ad5c4d769f82eaae06 -->
-<h2>Delete a Treasury Record</h2>
-<p>Delete a treasury payment record with specified ID</p>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/treasury/{}"
-);
-
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "DELETE",
-    headers: headers,
-})
-    .then(response =&gt; response.json())
-    .then(json =&gt; console.log(json));</code></pre>
-<h3>HTTP Request</h3>
-<p><code>DELETE api/treasury/{}</code></p>
-<h4>URL Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>id</code></td>
-<td>required</td>
-<td>The ID of the treasury record /{id}.</td>
-</tr>
-</tbody>
-</table>
-<!-- END_53b19d66da8141ad5c4d769f82eaae06 -->
+<!-- END_aa618d7138b31542c5d0099fc7dcec2d -->
       </div>
       <div class="dark-box">
                         <div class="lang-selector">
