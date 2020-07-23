@@ -35,7 +35,13 @@ class LoginController extends Controller
     }
 
     /**
+     * 
+     * Login an Admin User
+     * 
      * Get a JWT token via given credentials.
+     * 
+     * @bodyParam  email string required The Email of the user.
+     * @bodyParam  password string required The Password of the User.
      *
      * @param  \Illuminate\Http\Request  $request
      *

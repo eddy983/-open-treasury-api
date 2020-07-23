@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
+    /**
+     * Register an Admin User
+     * 
+     * @bodyParam  name string required The Name of the user.
+     * @bodyParam  email string required The Email of the user.
+     * @bodyParam  password string required The Password of the User.
+     * @bodyParam  password_repeat string required Repeat User password. 
+     */
     public function register(Request $request)
     {
         $validator = \Validator::make($request->all(), [

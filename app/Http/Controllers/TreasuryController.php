@@ -7,6 +7,19 @@ use Illuminate\Http\Request;
 
 class TreasuryController extends Controller
 {
+
+    /**
+     * Create a new AuthController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+         
+        $this->middleware('auth:api');
+        
+    }
+
     /**
      * A List of treasury payments
      * 

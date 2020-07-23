@@ -47,12 +47,23 @@ Route::group([
     'prefix' => 'treasury'
 
 ], function ($router) {
-    // Route::get('/', 'TreasuryController@get'); 
+     
     Route::resource('','TreasuryController', [
         'only' => ['index', 'store']
     ]);
+    //Route::get('/', 'TreasuryController@get');
     Route::delete('/{id}', 'TreasuryController@destroy');
     Route::get('/{id}', 'TreasuryController@show');
     Route::put('/{id}', 'TreasuryController@update');
 
 });
+
+Route::group([
+    'middleware' => 'api', 
+    'prefix' => 'payments'
+], function ($router) {
+    Route::get('/without-names', 'InsightController@withoutNames');  
+});
+
+//Route::get('/multiple-payments', 'InsightController@multiplePayments');
+

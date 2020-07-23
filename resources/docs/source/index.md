@@ -23,7 +23,8 @@ Welcome to the generated API reference.
 
 
 <!-- START_2e1c96dcffcfe7e0eb58d6408f1d619e -->
-## api/auth/register
+## Register an Admin User
+
 > Example request:
 
 ```javascript
@@ -36,9 +37,17 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "name": "aspernatur",
+    "email": "reprehenderit",
+    "password": "inventore",
+    "password_repeat": "sapiente"
+}
+
 fetch(url, {
     method: "POST",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -49,11 +58,20 @@ fetch(url, {
 ### HTTP Request
 `POST api/auth/register`
 
-
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `name` | string |  required  | The Name of the user.
+        `email` | string |  required  | The Email of the user.
+        `password` | string |  required  | The Password of the User.
+        `password_repeat` | string |  required  | Repeat User password.
+    
 <!-- END_2e1c96dcffcfe7e0eb58d6408f1d619e -->
 
 <!-- START_a925a8d22b3615f12fca79456d286859 -->
-## Get a JWT token via given credentials.
+## Login an Admin User
+
+Get a JWT token via given credentials.
 
 > Example request:
 
@@ -67,9 +85,15 @@ let headers = {
     "Accept": "application/json",
 };
 
+let body = {
+    "email": "nobis",
+    "password": "omnis"
+}
+
 fetch(url, {
     method: "POST",
     headers: headers,
+    body: body
 })
     .then(response => response.json())
     .then(json => console.log(json));
@@ -80,7 +104,12 @@ fetch(url, {
 ### HTTP Request
 `POST api/auth/login`
 
-
+#### Body Parameters
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    `email` | string |  required  | The Email of the user.
+        `password` | string |  required  | The Password of the User.
+    
 <!-- END_a925a8d22b3615f12fca79456d286859 -->
 
 <!-- START_19ff1b6f8ce19d3c444e9b518e8f7160 -->
@@ -189,7 +218,7 @@ const url = new URL(
 );
 
 let params = {
-    "count": "7",
+    "count": "6",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -208,195 +237,11 @@ fetch(url, {
 ```
 
 
-> Example response (200):
+> Example response (401):
 
 ```json
 {
-    "treasuries": {
-        "current_page": 1,
-        "data": [
-            {
-                "id": 1,
-                "date": "2018-09-30 00:00:00",
-                "day": "30",
-                "month": "09",
-                "year": 2018,
-                "payment_number": "1000513412-10",
-                "payer_code": 116005001,
-                "mother_ministry": "MINISTRY OF DEFENCE",
-                "organization_name": "NIGERIAN AIRFORCE",
-                "beneficiary_name": "NAF 330 NAF STATION",
-                "amount": 92692172.680000007152557373046875,
-                "description": "Sep 18 PE",
-                "irregularities": "",
-                "created_at": "2020-06-08T12:30:13.000000Z",
-                "updated_at": "2020-06-08T12:30:13.000000Z"
-            },
-            {
-                "id": 2,
-                "date": "2018-09-30 00:00:00",
-                "day": "30",
-                "month": "09",
-                "year": 2018,
-                "payment_number": "1000513412-11",
-                "payer_code": 116005001,
-                "mother_ministry": "MINISTRY OF DEFENCE",
-                "organization_name": "NIGERIAN AIRFORCE",
-                "beneficiary_name": "NAF AIR FORCE INSTITUTE OF TECHNOLOGY",
-                "amount": 31643099.67000000178813934326171875,
-                "description": "Sep 18 PE",
-                "irregularities": "",
-                "created_at": "2020-06-08T12:30:13.000000Z",
-                "updated_at": "2020-06-08T12:30:13.000000Z"
-            },
-            {
-                "id": 3,
-                "date": "2018-09-30 00:00:00",
-                "day": "30",
-                "month": "09",
-                "year": 2018,
-                "payment_number": "1000513412-2",
-                "payer_code": 116005001,
-                "mother_ministry": "MINISTRY OF DEFENCE",
-                "organization_name": "NIGERIAN AIRFORCE",
-                "beneficiary_name": "NAF SPECIAL OPERATIONS COMMAND",
-                "amount": 183120196.5999999940395355224609375,
-                "description": "Sep 18 PE",
-                "irregularities": "",
-                "created_at": "2020-06-08T12:30:14.000000Z",
-                "updated_at": "2020-06-08T12:30:14.000000Z"
-            },
-            {
-                "id": 4,
-                "date": "2018-09-30 00:00:00",
-                "day": "30",
-                "month": "09",
-                "year": 2018,
-                "payment_number": "1000513412-3",
-                "payer_code": 116005001,
-                "mother_ministry": "MINISTRY OF DEFENCE",
-                "organization_name": "NIGERIAN AIRFORCE",
-                "beneficiary_name": "NAF MOBILITY COMMAND",
-                "amount": 243931339.300000011920928955078125,
-                "description": "Sep 18 PE",
-                "irregularities": "",
-                "created_at": "2020-06-08T12:30:14.000000Z",
-                "updated_at": "2020-06-08T12:30:14.000000Z"
-            },
-            {
-                "id": 5,
-                "date": "2018-09-30 00:00:00",
-                "day": "30",
-                "month": "09",
-                "year": 2018,
-                "payment_number": "1000513412-4",
-                "payer_code": 116005001,
-                "mother_ministry": "MINISTRY OF DEFENCE",
-                "organization_name": "NIGERIAN AIRFORCE",
-                "beneficiary_name": "NAF TRAINING COMMAND",
-                "amount": 696779122.7000000476837158203125,
-                "description": "Sep 18 PE",
-                "irregularities": "",
-                "created_at": "2020-06-08T12:30:14.000000Z",
-                "updated_at": "2020-06-08T12:30:14.000000Z"
-            },
-            {
-                "id": 6,
-                "date": "2018-09-30 00:00:00",
-                "day": "30",
-                "month": "09",
-                "year": 2018,
-                "payment_number": "1000513412-5",
-                "payer_code": 116005001,
-                "mother_ministry": "MINISTRY OF DEFENCE",
-                "organization_name": "NIGERIAN AIRFORCE",
-                "beneficiary_name": "NIGERIAN AIR FORCE NAF GROUND TRAINING COMMAND",
-                "amount": 184255012.9000000059604644775390625,
-                "description": "Sep 18 PE",
-                "irregularities": "",
-                "created_at": "2020-06-08T12:30:14.000000Z",
-                "updated_at": "2020-06-08T12:30:14.000000Z"
-            },
-            {
-                "id": 7,
-                "date": "2018-09-30 00:00:00",
-                "day": "30",
-                "month": "09",
-                "year": 2018,
-                "payment_number": "1000513412-6",
-                "payer_code": 116005001,
-                "mother_ministry": "MINISTRY OF DEFENCE",
-                "organization_name": "NIGERIAN AIRFORCE",
-                "beneficiary_name": "NAF LOGISTICS COMMAND",
-                "amount": 211910891.699999988079071044921875,
-                "description": "Sep 18 PE",
-                "irregularities": "",
-                "created_at": "2020-06-08T12:30:15.000000Z",
-                "updated_at": "2020-06-08T12:30:15.000000Z"
-            },
-            {
-                "id": 8,
-                "date": "2018-09-30 00:00:00",
-                "day": "30",
-                "month": "09",
-                "year": 2018,
-                "payment_number": "1000513412-7",
-                "payer_code": 116005001,
-                "mother_ministry": "MINISTRY OF DEFENCE",
-                "organization_name": "NIGERIAN AIRFORCE",
-                "beneficiary_name": "NAF 103 PAY AND ACCOUNTING GROUP",
-                "amount": 1089820597,
-                "description": "Sep 18 PE",
-                "irregularities": "",
-                "created_at": "2020-06-08T12:30:15.000000Z",
-                "updated_at": "2020-06-08T12:30:15.000000Z"
-            },
-            {
-                "id": 9,
-                "date": "2018-09-30 00:00:00",
-                "day": "30",
-                "month": "09",
-                "year": 2018,
-                "payment_number": "1000513412-8",
-                "payer_code": 116005001,
-                "mother_ministry": "MINISTRY OF DEFENCE",
-                "organization_name": "NIGERIAN AIRFORCE",
-                "beneficiary_name": "NAF 106 NIGERIAN AIR FORCE CAMP",
-                "amount": 546748648.89999997615814208984375,
-                "description": "Sep 18 PE",
-                "irregularities": "",
-                "created_at": "2020-06-08T12:30:15.000000Z",
-                "updated_at": "2020-06-08T12:30:15.000000Z"
-            },
-            {
-                "id": 10,
-                "date": "2018-09-30 00:00:00",
-                "day": "30",
-                "month": "09",
-                "year": 2018,
-                "payment_number": "1000513412-9",
-                "payer_code": 116005001,
-                "mother_ministry": "MINISTRY OF DEFENCE",
-                "organization_name": "NIGERIAN AIRFORCE",
-                "beneficiary_name": "NAF 107 NIGERIAN AIR FORCE CAMP",
-                "amount": 155292322.9000000059604644775390625,
-                "description": "Sep 18 PE",
-                "irregularities": "",
-                "created_at": "2020-06-08T12:30:16.000000Z",
-                "updated_at": "2020-06-08T12:30:16.000000Z"
-            }
-        ],
-        "first_page_url": "http:\/\/localhost\/api\/treasury?page=1",
-        "from": 1,
-        "last_page": 9975,
-        "last_page_url": "http:\/\/localhost\/api\/treasury?page=9975",
-        "next_page_url": "http:\/\/localhost\/api\/treasury?page=2",
-        "path": "http:\/\/localhost\/api\/treasury",
-        "per_page": 10,
-        "prev_page_url": null,
-        "to": 10,
-        "total": 99742
-    }
+    "message": "Unauthenticated."
 }
 ```
 
@@ -429,15 +274,15 @@ let headers = {
 };
 
 let body = {
-    "date": "hic",
-    "payment_number": "voluptatem",
-    "payer_code": 5,
-    "mother_ministry": "unde",
-    "organization_name": "quaerat",
-    "beneficiary_name": "harum",
-    "amount": 2,
-    "description": "fuga",
-    "irregularities": "non"
+    "date": "sed",
+    "payment_number": "qui",
+    "payer_code": 10,
+    "mother_ministry": "tenetur",
+    "organization_name": "quos",
+    "beneficiary_name": "sed",
+    "amount": 10,
+    "description": "rerum",
+    "irregularities": "dicta"
 }
 
 fetch(url, {
@@ -478,7 +323,7 @@ Delete a treasury payment record with specified ID
 
 ```javascript
 const url = new URL(
-    "http://localhost:8000/api/treasury/et"
+    "http://localhost:8000/api/treasury/molestiae"
 );
 
 let headers = {
@@ -508,13 +353,13 @@ Parameter | Status | Description
 <!-- END_277d091d9cc2a290cda3e75048f53673 -->
 
 <!-- START_28c7b7795dead597eef42bd1e502375f -->
-## Display the specified resource.
+## Get a single treasury record.
 
 > Example request:
 
 ```javascript
 const url = new URL(
-    "http://localhost:8000/api/treasury/1"
+    "http://localhost:8000/api/treasury/rerum"
 );
 
 let headers = {
@@ -531,33 +376,22 @@ fetch(url, {
 ```
 
 
-> Example response (200):
+> Example response (401):
 
 ```json
 {
-    "treasury": {
-        "id": 1,
-        "date": "2018-09-30 00:00:00",
-        "day": "30",
-        "month": "09",
-        "year": 2018,
-        "payment_number": "1000513412-10",
-        "payer_code": 116005001,
-        "mother_ministry": "MINISTRY OF DEFENCE",
-        "organization_name": "NIGERIAN AIRFORCE",
-        "beneficiary_name": "NAF 330 NAF STATION",
-        "amount": 92692172.680000007152557373046875,
-        "description": "Sep 18 PE",
-        "irregularities": "",
-        "created_at": "2020-06-08T12:30:13.000000Z",
-        "updated_at": "2020-06-08T12:30:13.000000Z"
-    }
+    "message": "Unauthenticated."
 }
 ```
 
 ### HTTP Request
 `GET api/treasury/{id}`
 
+#### URL Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -------
+    `id` |  required  | The ID of the treasury record /{id}.
 
 <!-- END_28c7b7795dead597eef42bd1e502375f -->
 
@@ -570,7 +404,7 @@ Update a treasury payment record with specified ID
 
 ```javascript
 const url = new URL(
-    "http://localhost:8000/api/treasury/ut"
+    "http://localhost:8000/api/treasury/doloremque"
 );
 
 let headers = {
@@ -579,15 +413,15 @@ let headers = {
 };
 
 let body = {
-    "date": "est",
-    "payment_number": "modi",
+    "date": "ad",
+    "payment_number": "nisi",
     "payer_code": 5,
-    "mother_ministry": "nihil",
-    "organization_name": "quas",
-    "beneficiary_name": "et",
-    "amount": 4,
-    "description": "dolor",
-    "irregularities": "voluptatem"
+    "mother_ministry": "optio",
+    "organization_name": "ducimus",
+    "beneficiary_name": "nihil",
+    "amount": 20,
+    "description": "sed",
+    "irregularities": "minus"
 }
 
 fetch(url, {
@@ -623,5 +457,56 @@ Parameter | Type | Status | Description
         `irregularities` | string |  required  | The Irregularities.
     
 <!-- END_aa618d7138b31542c5d0099fc7dcec2d -->
+
+<!-- START_a4b21350dd2d752c6c1d0b05d432ab56 -->
+## Payments without names
+
+Identifying payments amounts which do not indicate ministry name, organization, and beneficiary name
+
+> Example request:
+
+```javascript
+const url = new URL(
+    "http://localhost:8000/api/payments/without-names"
+);
+
+let params = {
+    "count": "8",
+};
+Object.keys(params)
+    .forEach(key => url.searchParams.append(key, params[key]));
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+
+> Example response (401):
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### HTTP Request
+`GET api/payments/without-names`
+
+#### Query Parameters
+
+Parameter | Status | Description
+--------- | ------- | ------- | -----------
+    `count` |  optional  | int The number of records to return. Example 10
+
+<!-- END_a4b21350dd2d752c6c1d0b05d432ab56 -->
 
 
