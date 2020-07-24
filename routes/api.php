@@ -62,8 +62,9 @@ Route::group([
     'middleware' => 'api', 
     'prefix' => 'payments'
 ], function ($router) {
-    Route::get('/without-names', 'InsightController@withoutNames');  
+    //Route::get('/without-names', 'InsightController@withoutNames');  
 });
+Route::get('/payments/without-names', 'InsightController@withoutNames');
 
 //Route::get('/multiple-payments', 'InsightController@multiplePayments');
 
