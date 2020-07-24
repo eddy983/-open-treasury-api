@@ -22,7 +22,7 @@ provider:
         QUEUE_CONNECTION: 'database'
         DB_PORT: '3306'
         DB_HOST: ${ssm:/BUDGIT_DB_HOST}
-        DB_DATABASE: ${ssm:/personalised_platform/DB_DATABASE}
+        DB_DATABASE: open_treasury
         DB_USERNAME: ${ssm:/personalised_platform/DB_USERNAME}
         DB_PASSWORD: ${ssm:/personalised_platform/DB_PASSWORD}
         MIX_ASSET_URL: 'https://open-treasury-assets.s3.eu-west-2.amazonaws.com' 
