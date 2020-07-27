@@ -79,7 +79,7 @@ functions:
                 input:
                     cli: "route:list"
                 rate: rate(1 minute)
-                enabled: true
+                enabled: false
             - schedule:
                 input:
                     cli: "schedule:run"
