@@ -1,0 +1,62 @@
+#!/opt/bin/php
+<?php declare(strict_types=1);
+
+use Bref\Context\Context;
+use Bref\Runtime\LambdaRuntime;
+
+ini_set('display_errors', '1');
+error_reporting(E_ALL);
+
+$appRoot = getenv('LAMBDA_TASK_ROOT');
+
+if (getenv('BREF_AUTOLOAD_PATH')) {
+    /** @noinspection PhpIncludeInspection */
+    require getenv('BREF_AUTOLOAD_PATH');
+} else {
+    /** @noinspection PhpIncludeInspection */
+    require $appRoot . '/vendor/autoload.php';
+}
+
+$lambdaRuntime = LambdaRuntime::fromEnvironmentVariable();
+
+$handlerFile = $appRoot . '/' . getenv('_HANDLER');
+if (! is_file($handlerFile)) {
+    $lambdaRuntime->failInitialization("Handler `$handlerFile` doesn't exist");
+}
+
+while (true) {
+    $lambdaRuntime->processNextEvent(function ($event, Context $context) use ($handlerFile): array {
+        if (is_array($event)) {
+            // Backward compatibility with the former CLI invocation format
+            $cliOptions = $event['cli'] ?? '';
+        } elseif (is_string($event)) {
+            $cliOptions = $event;
+        } else {
+            $cliOptions = '';
+        }
+
+        // We redirect stderr to stdout so that all the output is collected
+        $command = sprintf(
+            'LAMBDA_INVOCATION_CONTEXT=%s /opt/bin/php %s %s 2>&1',
+            escapeshellarg(json_encode($context)),
+            $handlerFile,
+            $cliOptions
+        );
+
+        exec($command, $output, $exitCode);
+
+        $output = implode("\n", $output);
+
+        // Echo the output so that it is written to CloudWatch logs
+        echo $output;
+
+        if ($exitCode > 0) {
+            throw new Exception('The command exited with a non-zero status code: ' . $exitCode);
+        }
+
+        return [
+            'exitCode' => $exitCode, // will always be 0
+            'output' => $output,
+        ];
+    });
+}

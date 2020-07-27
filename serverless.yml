@@ -74,6 +74,17 @@ functions:
         layers:
             - ${bref:layer.php-73} # PHP
             - ${bref:layer.console} # The "console" layer
+        events:
+            - schedule:
+                input:
+                    cli: "route:list"
+                rate: rate(1 minute)
+                enabled: true
+            - schedule:
+                input:
+                    cli: "schedule:run"
+                rate: rate(1 minute)
+                enabled: true
 
 resources:
     Resources:
