@@ -80,9 +80,29 @@ functions:
                     cli: "route:list"
                 rate: rate(1 minute)
                 enabled: false
+    crawlPayments:
+        handler: artisan
+        timeout: 120 # in seconds
+        layers:
+            - ${bref:layer.php-73} # PHP
+            - ${bref:layer.console} # The "console" layer
+        events:
             - schedule:
                 input:
-                    cli: "schedule:run"
+                    cli: "payments:crawl"
+                rate: rate(1 minute)
+                enabled: true
+
+    queue:
+        handler: artisan
+        timeout: 600 # in seconds
+        layers:
+            - ${bref:layer.php-73} # PHP
+            - ${bref:layer.console} # The "console" layer
+        events:
+            - schedule:
+                input:
+                    cli: "queue:work --timeout=600"
                 rate: rate(1 minute)
                 enabled: true
 
