@@ -34,6 +34,9 @@ provider:
         MAIL_ENCRYPTION: 'tls'
         MAIL_FROM_ADDRESS: ${ssm:/personalised_platform/MAIL_FROM_ADDRESS} 
         MAIL_FROM_NAME: 'BudgIT'
+
+        AWS_ACCESS_KEY_ID: ${ssm:/open_treasury/AWS_ACCESS_KEY_ID}
+        AWS_SECRET_ACCESS_KEY:	${ssm:/open_treasury/AWS_SECRET_ACCESS_KEY}
         #AWS_DEFAULT_REGION: 'eu-west-2'
         AWS_BUCKET: # environment variable for Laravel
             Ref: Assets
