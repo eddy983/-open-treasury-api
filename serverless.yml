@@ -103,7 +103,7 @@ functions:
         events:
             - schedule:
                 input:
-                    cli: "queue:work --timeout=600"
+                    cli: "queue:work --timeout=600 --stop-when-empty"
                 rate: rate(1 minute)
                 enabled: true
 
