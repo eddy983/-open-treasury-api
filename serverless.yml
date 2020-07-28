@@ -95,7 +95,7 @@ functions:
                 input:
                     cli: "payments:crawl"
                 rate: rate(1 minute)
-                enabled: true
+                enabled: false
 
     queue:
         handler: artisan
@@ -108,7 +108,7 @@ functions:
                 input:
                     cli: "queue:work --timeout=600 --stop-when-empty"
                 rate: rate(1 minute)
-                enabled: true
+                enabled: false
 
 resources:
     Resources:
