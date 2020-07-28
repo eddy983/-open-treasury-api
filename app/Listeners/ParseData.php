@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\DataCrawled;
 use App\Imports\TreasuryImport;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel; 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -36,7 +37,8 @@ class ParseData implements ShouldQueue
      */
     public function handle(DataCrawled $event)
     {
-        echo "Event received: $event->filename \n";
+        
+        Log::info("Event received: $event->filename");
         //$contents = Storage::disk('s3')->get($event->filename);
 
         Excel::import(new TreasuryImport, "$event->filename", 's3', \Maatwebsite\Excel\Excel::XLSX);

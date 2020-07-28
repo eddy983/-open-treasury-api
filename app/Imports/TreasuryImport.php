@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use Carbon\Carbon;
 use App\TreasuryTemporary;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -34,6 +35,7 @@ class TreasuryImport implements ToModel
            'email'    => $row[1],
            'password' => Hash::make($row[2]),
         ]);*/
+        Log::info("TreasuryImport() initialized");
         $day = empty($row[1]) ? '01' : (int) trim($row[1]);
         $month = empty($row[1]) ? '01' : (int) trim($row[2]);
         $year = empty($row[1]) ? '2021' : (int) trim($row[3]);

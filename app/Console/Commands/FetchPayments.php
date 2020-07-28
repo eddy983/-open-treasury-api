@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 //use \GuzzleHttp\Client;
 use Goutte\Client; 
 use App\Events\DataCrawled;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Console\Command;
 
@@ -41,6 +42,7 @@ class FetchPayments extends Command
      */
     public function handle()
     {
+        Log::info("Crawl Payments initialized");
         $client = new \Goutte\Client();
         
         $guzzleClient = new \GuzzleHttp\Client(array(
@@ -64,12 +66,12 @@ class FetchPayments extends Command
                     "ssl"=>[ "verify_peer"=>false, "verify_peer_name"=>false]
                 ]; 
 
-                echo "Downloading: https://opentreasury.gov.ng$href \n";
+                Log::info("Downloading: https://opentreasury.gov.ng$href"); 
                 $contents = file_get_contents("https://opentreasury.gov.ng$href", false, stream_context_create($arrContextOptions));
                 //dd($node);
                 $name = substr("https://opentreasury.gov.ng$href", strrpos("https://opentreasury.gov.ng$href", '/') + 1);
                 
-                echo "Uploading to: data/excel/$name \n";
+                Log::info("Uploading to: data/excel/$name");
                 Storage::disk('s3')->put("data/excel/$name", $contents);
 
                 event(new DataCrawled("data/excel/$name"));
