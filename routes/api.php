@@ -59,6 +59,24 @@ Route::group([
 });
 
 Route::group([
+
+    'middleware' => 'api',
+    //'namespace' => 'App\Http\Controllers',
+    'prefix' => 'temporary-treasury'
+
+], function ($router) {
+     
+    Route::resource('','TreasuryTemporaryController', [
+        'only' => ['index']
+    ]);
+    //Route::get('/', 'TreasuryController@get');
+    Route::delete('/{id}', 'TreasuryTemporaryController@destroy');
+    Route::get('/{id}', 'TreasuryTemporaryController@show');
+    Route::put('/{id}', 'TreasuryTemporaryController@update');
+
+});
+
+Route::group([
     'middleware' => 'api', 
     'prefix' => 'payments'
 ], function ($router) {

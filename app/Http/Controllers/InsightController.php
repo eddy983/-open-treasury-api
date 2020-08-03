@@ -37,6 +37,7 @@ class InsightController extends Controller
      * Identifying payments amounts which do not indicate ministry name, organization, and beneficiary name
      * 
      * @queryParam  count int The number of records to return. Example 10
+     * @queryParam  page int The page of the records. Example 3
      */
 
     public function withoutNames()

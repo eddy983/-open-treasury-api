@@ -26,6 +26,7 @@ class TreasuryController extends Controller
      * Shows a paginated list of payments
      * 
      * @queryParam  count int The number of records to return. Example 10
+     * @queryParam  page int The page of the records . Example 2
      *
      * @return \Illuminate\Http\Response
      */
