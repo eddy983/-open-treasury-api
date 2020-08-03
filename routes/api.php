@@ -52,9 +52,11 @@ Route::group([
         'only' => ['index', 'store']
     ]);
     //Route::get('/', 'TreasuryController@get');
+    Route::get('/search', 'TreasuryController@search');
     Route::delete('/{id}', 'TreasuryController@destroy');
     Route::get('/{id}', 'TreasuryController@show');
     Route::put('/{id}', 'TreasuryController@update');
+    
 
 });
 

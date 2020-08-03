@@ -212,4 +212,29 @@ class TreasuryController extends Controller
                     "message" => "Treasury record with id {$treasury->id} deleted"
                 ]);
     }
+
+    /**
+     * Search for treasury payments
+     * 
+     * Shows a paginated list of search result
+     * 
+     * @queryParam  search_term string Search term. Example ajaokuta
+     * @queryParam  count int The number of records to return. Example 10
+     * @queryParam  page int The page of the records . Example 2
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search()
+    {
+        //Log::info("GET /treasury");
+        $count = isset($_GET['count']) ? $_GET['count'] : 10;
+        $search_term = isset($_GET['search_term']) ? $_GET['search_term'] : "";  
+        
+
+        $treasuries = Treasury::whereRaw('MATCH (mother_ministry, organization_name,beneficiary_name,description) AGAINST (?)' , array($search_term))
+                                ->paginate($count);
+    
+        return response()
+                ->json(compact("treasuries"));
+    }
 }
