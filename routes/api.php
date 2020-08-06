@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/payments/multiple', 'InsightController@multiplePayments');
 
 Route::get('/documentation', function(){
     return view("apidoc.index");
@@ -86,5 +87,5 @@ Route::group([
 });
 Route::get('/payments/without-names', 'InsightController@withoutNames');
 
-//Route::get('/multiple-payments', 'InsightController@multiplePayments');
+
 
