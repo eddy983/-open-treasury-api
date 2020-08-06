@@ -24,12 +24,13 @@ class InsightController extends Controller
      */
     public function multiplePayments()
     {
+        $limit = isset($_GET['limit']) ? $_GET['limit'] : 20;
         echo \Carbon\Carbon::now();
         //$payments = Treasury::whereColumn('beneficiary_name','=','beneficiary_name')->limit(10)->get();
         $payments = Treasury::select(\DB::raw('beneficiary_name, count(*)'))
                             ->groupBy('beneficiary_name')
                             ->orderBy('count(*)', 'DESC')
-                            ->limit(20)
+                            ->limit($limit)
                             ->get();
         foreach($payments as $payment){
             $result = \DB::select("SELECT date, count(*) AS count FROM treasuries 
