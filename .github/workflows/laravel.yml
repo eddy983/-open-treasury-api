@@ -25,8 +25,8 @@ jobs:
       run: chmod -R 777 storage bootstrap/cache
     - name: deploy to serverless 
       run: | 
-        npm install serverless
-        node_modules/serverless/bin/serverless.js deploy
+          npm install -g serverless
+          serverless deploy
       env:
         CI: true
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
