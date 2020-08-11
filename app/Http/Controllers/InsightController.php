@@ -11,6 +11,8 @@ class InsightController extends Controller
     /**
      * Create a new AuthController instance.
      *
+     * @group  Analytics
+     * 
      * @return void
      */
     public function __construct()
@@ -22,6 +24,8 @@ class InsightController extends Controller
      * 
      * Instances where several payments were made on the same day to the same beneficiary
      *  
+     * @group  Analytics
+     * 
      * @queryParam  count int The number of records to return. Example 10
      * @queryParam  page int The page of the records . Example 2
      */
@@ -53,6 +57,8 @@ class InsightController extends Controller
      * Payments without names
      * 
      * Identifying payments amounts which do not indicate ministry name, organization, and beneficiary name
+     * 
+     * @group  Analytics
      * 
      * @queryParam  count int The number of records to return. Example 10
      * @queryParam  page int The page of the records. Example 3

@@ -26,6 +26,8 @@ class TreasuryTemporaryController extends Controller
      * 
      * Shows a paginated list of payments records gotten by the data crawler
      * 
+     * @group  Temporary Treasury
+     * 
      * @queryParam  count int The number of records to return. Example 10
      * @queryParam  page int The page. Example 2
      *
@@ -67,6 +69,8 @@ class TreasuryTemporaryController extends Controller
      * @bodyParam  description string required The Payment Description.
      * @bodyParam  irregularities string required The Irregularities.
      *
+     * @group  Temporary Treasury
+     * 
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -102,6 +106,8 @@ class TreasuryTemporaryController extends Controller
      * 
      * @urlParam  id required The ID of the treasury record /{id}.
      *
+     * @group  Temporary Treasury
+     * 
      * @param  \App\TreasuryTemporary  $treasury
      * @return \Illuminate\Http\Response
      */
@@ -148,6 +154,8 @@ class TreasuryTemporaryController extends Controller
      * @bodyParam  description string required The Payment Description.
      * @bodyParam  irregularities string required The Irregularities.
      *
+     * @group  Temporary Treasury
+     * 
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\TreasuryTemporary  $treasury
      * @return \Illuminate\Http\Response
@@ -190,6 +198,8 @@ class TreasuryTemporaryController extends Controller
      * 
      * Delete a treasury payment record with specified ID
      * 
+     * @group  Temporary Treasury
+     * 
      * @urlParam  id required The ID of the treasury record /{id}.
      *
      * @param  \App\TreasuryTemporary  $treasury
@@ -231,6 +241,8 @@ class TreasuryTemporaryController extends Controller
      * @bodyParam  description string required The Payment Description.
      * @bodyParam  irregularities string required The Irregularities.
      *
+     * @group  Temporary Treasury
+     * 
      * @param  \App\TreasuryTemporary  $treasury
      * @return \Illuminate\Http\Response
      */
@@ -290,6 +302,8 @@ class TreasuryTemporaryController extends Controller
      * 
      * @urlParam  id required The ID of the treasury record /{id}.  
      *
+     * @group  Temporary Treasury
+     * 
      * @param  \App\TreasuryTemporary  $treasury
      * @return \Illuminate\Http\Response
      */

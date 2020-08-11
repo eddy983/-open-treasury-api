@@ -27,6 +27,8 @@ class TreasuryController extends Controller
      * 
      * @queryParam  count int The number of records to return. Example 10
      * @queryParam  page int The page of the records . Example 2
+     * 
+     * @group  Treasury
      *
      * @return \Illuminate\Http\Response
      */
@@ -44,6 +46,7 @@ class TreasuryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * 
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -66,6 +69,8 @@ class TreasuryController extends Controller
      * @bodyParam  description string required The Payment Description.
      * @bodyParam  irregularities string required The Irregularities.
      *
+     * @group  Treasury
+     * 
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -101,6 +106,8 @@ class TreasuryController extends Controller
      * 
      * @urlParam  id required The ID of the treasury record /{id}.
      *
+     * @group  Treasury
+     * 
      * @param  \App\Treasury  $treasury
      * @return \Illuminate\Http\Response
      */
@@ -147,6 +154,8 @@ class TreasuryController extends Controller
      * @bodyParam  description string required The Payment Description.
      * @bodyParam  irregularities string required The Irregularities.
      *
+     * @group  Treasury
+     * 
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Treasury  $treasury
      * @return \Illuminate\Http\Response
@@ -191,6 +200,8 @@ class TreasuryController extends Controller
      * 
      * @urlParam  id required The ID of the treasury record /{id}.
      *
+     * @group  Treasury
+     * 
      * @param  \App\Treasury  $treasury
      * @return \Illuminate\Http\Response
      */
@@ -224,6 +235,8 @@ class TreasuryController extends Controller
      * @queryParam  count int The number of records to return. Example 10
      * @queryParam  page int The page of the records . Example 2
      *
+     * @group  Treasury
+     * 
      * @return \Illuminate\Http\Response
      */
     public function search()
@@ -259,6 +272,8 @@ class TreasuryController extends Controller
      * @bodyParam  beneficiary_name string required Beneficiary Name.
      * @bodyParam  date string required The payment date.
      *
+     * @group  Treasury
+     * 
      * @return \Illuminate\Http\Response
      */
     public function getByBeneficiaryOnDate(Request $request)

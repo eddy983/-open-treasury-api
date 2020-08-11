@@ -16,6 +16,8 @@ class RegisterController extends Controller
      * @bodyParam  email string required The Email of the user.
      * @bodyParam  password string required The Password of the User.
      * @bodyParam  password_repeat string required Repeat User password. 
+     * 
+     * @group  User Management
      */
     public function register(Request $request)
     {
