@@ -288,7 +288,8 @@ class TreasuryTemporaryController extends Controller
 
         return response()
                 ->json([
-                    "message" => "Temporary Treasury record with ID ({$id}) has now been merged"
+                    "message" => "Temporary Treasury record with ID ({$id}) has now been merged",
+                    "treasury" => $new_treasury
                 ], 200); 
         
         
