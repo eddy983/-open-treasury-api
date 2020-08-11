@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/users/{id}', 'UserController@update');
+Route::delete('/users/{id}', 'UserController@delete');
 Route::get('/insight/overview', 'InsightController@overviewStatistics');
 Route::get('/payments/multiple', 'InsightController@multiplePayments');
 // transactions on a particular date
