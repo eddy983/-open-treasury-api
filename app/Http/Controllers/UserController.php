@@ -76,7 +76,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string', 
-            'email' => 'required|string|unique:users,email',  
+            'email' => 'required|string|exists:users,email',  
         ]);
 
         $user = User::find($id); 
