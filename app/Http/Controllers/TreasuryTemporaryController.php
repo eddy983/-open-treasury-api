@@ -296,9 +296,9 @@ class TreasuryTemporaryController extends Controller
 
 
     /**
-     * Accept a Temporary Treasury Record
+     * Decline a Temporary Treasury Record
      * 
-     * Accept a crawled data into the main database
+     * Decline a crawled data into the main database
      * 
      * @urlParam  id required The ID of the treasury record /{id}.  
      *
