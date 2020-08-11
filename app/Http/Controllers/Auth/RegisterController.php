@@ -31,7 +31,7 @@ class RegisterController extends Controller
             return response()
                     ->json([
                         'errors' => $validator->errors()
-                    ]);
+                    ], 400);
         }
 
         $user = new User([

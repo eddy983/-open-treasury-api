@@ -73,8 +73,8 @@ const url = new URL(
 );
 
 let params = {
-    "count": "20",
-    "page": "17",
+    "count": "6",
+    "page": "13",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -126,8 +126,8 @@ const url = new URL(
 );
 
 let params = {
-    "count": "14",
-    "page": "11",
+    "count": "5",
+    "page": "15",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -183,7 +183,7 @@ const url = new URL(
 
 let params = {
     "count": "1",
-    "page": "16",
+    "page": "17",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -231,7 +231,7 @@ Delete a treasury payment record with specified ID
 
 ```javascript
 const url = new URL(
-    "http://localhost:8000/api/temporary-treasury/ipsum"
+    "http://localhost:8000/api/temporary-treasury/tempore"
 );
 
 let headers = {
@@ -267,7 +267,7 @@ Parameter | Status | Description
 
 ```javascript
 const url = new URL(
-    "http://localhost:8000/api/temporary-treasury/ut"
+    "http://localhost:8000/api/temporary-treasury/at"
 );
 
 let headers = {
@@ -312,7 +312,7 @@ Update a treasury payment record with specified ID
 
 ```javascript
 const url = new URL(
-    "http://localhost:8000/api/temporary-treasury/et"
+    "http://localhost:8000/api/temporary-treasury/sint"
 );
 
 let headers = {
@@ -321,15 +321,15 @@ let headers = {
 };
 
 let body = {
-    "date": "cupiditate",
-    "payment_number": "temporibus",
-    "payer_code": 19,
-    "mother_ministry": "repudiandae",
-    "organization_name": "odit",
-    "beneficiary_name": "fuga",
-    "amount": 12,
-    "description": "rem",
-    "irregularities": "sapiente"
+    "date": "eligendi",
+    "payment_number": "fugiat",
+    "payer_code": 18,
+    "mother_ministry": "consequatur",
+    "organization_name": "nihil",
+    "beneficiary_name": "iure",
+    "amount": 17,
+    "description": "vitae",
+    "irregularities": "inventore"
 }
 
 fetch(url, {
@@ -375,7 +375,7 @@ Accept a crawled data into the main database
 
 ```javascript
 const url = new URL(
-    "http://localhost:8000/api/temporary-treasury/vitae/accept"
+    "http://localhost:8000/api/temporary-treasury/dolorem/accept"
 );
 
 let headers = {
@@ -384,15 +384,15 @@ let headers = {
 };
 
 let body = {
-    "date": "facilis",
-    "payment_number": "dolorem",
-    "payer_code": 9,
-    "mother_ministry": "ea",
-    "organization_name": "possimus",
-    "beneficiary_name": "repellat",
-    "amount": 14,
-    "description": "consequatur",
-    "irregularities": "ab"
+    "date": "blanditiis",
+    "payment_number": "impedit",
+    "payer_code": 12,
+    "mother_ministry": "earum",
+    "organization_name": "nesciunt",
+    "beneficiary_name": "in",
+    "amount": 4,
+    "description": "voluptas",
+    "irregularities": "voluptas"
 }
 
 fetch(url, {
@@ -430,15 +430,15 @@ Parameter | Type | Status | Description
 <!-- END_ac434efce8b44dde57e3a2611ffb147b -->
 
 <!-- START_5fb30344d0af4a340fac351230270a80 -->
-## Accept a Temporary Treasury Record
+## Decline a Temporary Treasury Record
 
-Accept a crawled data into the main database
+Decline a crawled data into the main database
 
 > Example request:
 
 ```javascript
 const url = new URL(
-    "http://localhost:8000/api/temporary-treasury/necessitatibus/decline"
+    "http://localhost:8000/api/temporary-treasury/in/decline"
 );
 
 let headers = {
@@ -488,8 +488,8 @@ let headers = {
 };
 
 let body = {
-    "beneficiary_name": "rerum",
-    "date": "nulla"
+    "beneficiary_name": "ipsum",
+    "date": "repellat"
 }
 
 fetch(url, {
@@ -527,8 +527,8 @@ const url = new URL(
 );
 
 let params = {
-    "count": "7",
-    "page": "1",
+    "count": "14",
+    "page": "18",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -585,15 +585,15 @@ let headers = {
 };
 
 let body = {
-    "date": "aspernatur",
-    "payment_number": "voluptatibus",
-    "payer_code": 11,
-    "mother_ministry": "ut",
-    "organization_name": "incidunt",
-    "beneficiary_name": "qui",
-    "amount": 4,
-    "description": "fugiat",
-    "irregularities": "voluptas"
+    "date": "voluptatibus",
+    "payment_number": "ullam",
+    "payer_code": 14,
+    "mother_ministry": "saepe",
+    "organization_name": "a",
+    "beneficiary_name": "at",
+    "amount": 2,
+    "description": "explicabo",
+    "irregularities": "earum"
 }
 
 fetch(url, {
@@ -638,11 +638,11 @@ const url = new URL(
 );
 
 let params = {
-    "search_term": "optio",
-    "start_date": "ex",
-    "end_date": "nisi",
-    "count": "20",
-    "page": "1",
+    "search_term": "consequuntur",
+    "start_date": "vitae",
+    "end_date": "saepe",
+    "count": "18",
+    "page": "10",
 };
 Object.keys(params)
     .forEach(key => url.searchParams.append(key, params[key]));
@@ -693,7 +693,7 @@ Delete a treasury payment record with specified ID
 
 ```javascript
 const url = new URL(
-    "http://localhost:8000/api/treasury/iste"
+    "http://localhost:8000/api/treasury/vero"
 );
 
 let headers = {
@@ -729,7 +729,7 @@ Parameter | Status | Description
 
 ```javascript
 const url = new URL(
-    "http://localhost:8000/api/treasury/perferendis"
+    "http://localhost:8000/api/treasury/aut"
 );
 
 let headers = {
@@ -774,7 +774,7 @@ Update a treasury payment record with specified ID
 
 ```javascript
 const url = new URL(
-    "http://localhost:8000/api/treasury/nulla"
+    "http://localhost:8000/api/treasury/dolorum"
 );
 
 let headers = {
@@ -783,15 +783,15 @@ let headers = {
 };
 
 let body = {
-    "date": "nulla",
-    "payment_number": "dolores",
-    "payer_code": 5,
-    "mother_ministry": "iste",
-    "organization_name": "reprehenderit",
-    "beneficiary_name": "quas",
-    "amount": 8,
-    "description": "quae",
-    "irregularities": "ea"
+    "date": "facere",
+    "payment_number": "magnam",
+    "payer_code": 17,
+    "mother_ministry": "quo",
+    "organization_name": "perspiciatis",
+    "beneficiary_name": "ex",
+    "amount": 17,
+    "description": "sint",
+    "irregularities": "consequatur"
 }
 
 fetch(url, {
@@ -847,10 +847,10 @@ let headers = {
 };
 
 let body = {
-    "name": "et",
-    "email": "magnam",
-    "password": "numquam",
-    "password_repeat": "est"
+    "name": "laboriosam",
+    "email": "perferendis",
+    "password": "eum",
+    "password_repeat": "id"
 }
 
 fetch(url, {
@@ -895,8 +895,8 @@ let headers = {
 };
 
 let body = {
-    "email": "dolorem",
-    "password": "expedita"
+    "email": "laborum",
+    "password": "ut"
 }
 
 fetch(url, {
