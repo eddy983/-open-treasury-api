@@ -17,7 +17,7 @@ class ParseData implements ShouldQueue
      *
      * @var int
      */
-    public $delay = 60;
+    public $delay = 5;
 
     /**
      * Create the event listener.
@@ -41,6 +41,6 @@ class ParseData implements ShouldQueue
         Log::info("Event received: $event->filename");
         //$contents = Storage::disk('s3')->get($event->filename);
 
-        Excel::import(new TreasuryImport, "$event->filename", 's3', \Maatwebsite\Excel\Excel::XLSX);
+        Excel::import(new TreasuryImport($event->date), "$event->filename", 's3', \Maatwebsite\Excel\Excel::XLSX);
     }
 }

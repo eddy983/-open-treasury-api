@@ -21,28 +21,32 @@ class InsightController extends Controller
      * Duplicate Payments to same Beneficiary
      * 
      * Instances where several payments were made on the same day to the same beneficiary
+     *  
+     * @queryParam  count int The number of records to return. Example 10
+     * @queryParam  page int The page of the records . Example 2
      */
     public function multiplePayments()
     {
-        $limit = isset($_GET['limit']) ? $_GET['limit'] : 20;
-        echo \Carbon\Carbon::now();
-        //$payments = Treasury::whereColumn('beneficiary_name','=','beneficiary_name')->limit(10)->get();
-        $payments = Treasury::select(\DB::raw('beneficiary_name, count(*)'))
+        $count = isset($_GET['count']) ? $_GET['count'] : 10;
+        $start_time =  \Carbon\Carbon::now();
+        
+        $payments = Treasury::select(\DB::raw('beneficiary_name, count(*) AS count'))
                             ->groupBy('beneficiary_name')
-                            ->orderBy('count(*)', 'DESC')
-                            ->limit($limit)
-                            ->get();
+                            ->orderBy('count', 'DESC')
+                            //->limit($limit)
+                            ->paginate($count);
+        $results = [];
         foreach($payments as $payment){
             $result = \DB::select("SELECT date, count(*) AS count FROM treasuries 
             where beneficiary_name = '$payment->beneficiary_name'
             GROUP BY date;");
-            dump($result);
-        }
-        //$payments = Treasury::select('beneficiary_name')->distinct()->get()->count();
-        dump($payments);
-        echo \Carbon\Carbon::now();
-        //return response()
-        //        ->json(compact('payments'));
+             
+            $payment->number_of_times = count($result);
+            $payment->result = $result; 
+        } 
+        $end_time = \Carbon\Carbon::now();
+        return response()
+                ->json(compact('start_time', 'end_time','payments'));
     }
 
     /**

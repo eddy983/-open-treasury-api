@@ -35,7 +35,7 @@ class TreasuryController extends Controller
         //Log::info("GET /treasury");
         $count = isset($_GET['count']) ? $_GET['count'] : 10;
     
-        $treasuries = Treasury::paginate($count);
+        $treasuries = Treasury::orderBy("date", "DESC")->paginate($count);
     
         return response()
                 ->json(compact("treasuries"));
@@ -219,6 +219,8 @@ class TreasuryController extends Controller
      * Shows a paginated list of search result
      * 
      * @queryParam  search_term string Search term. Example ajaokuta
+     * @queryParam  start_date string Start Date. Example 2018-09-27
+     * @queryParam  end_date string End Date. Example 2018-10-27
      * @queryParam  count int The number of records to return. Example 10
      * @queryParam  page int The page of the records . Example 2
      *
@@ -228,13 +230,52 @@ class TreasuryController extends Controller
     {
         //Log::info("GET /treasury");
         $count = isset($_GET['count']) ? $_GET['count'] : 10;
-        $search_term = isset($_GET['search_term']) ? $_GET['search_term'] : "";  
+        $search_term = isset($_GET['search_term']) ? $_GET['search_term'] : "";
+        $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : null;
+        $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : null;  
         
+        if(!is_null($start_date) && !is_null($end_date)){
+            $start_date = \Carbon\Carbon::parse($start_date)->toDateTimeString();
+            $end_date = \Carbon\Carbon::parse($end_date)->toDateTimeString();
+            $treasuries = Treasury::whereBetween("date", [$start_date, $end_date])
+                                    ->whereRaw('MATCH (mother_ministry, organization_name,beneficiary_name,description) AGAINST (?)' , array($search_term))
+                                    ->paginate($count);
+        }else{
+            $treasuries = Treasury::whereRaw('MATCH (mother_ministry, organization_name,beneficiary_name,description) AGAINST (?)' , array($search_term))
+                                    ->paginate($count);            
+        }
 
-        $treasuries = Treasury::whereRaw('MATCH (mother_ministry, organization_name,beneficiary_name,description) AGAINST (?)' , array($search_term))
-                                ->paginate($count);
+
     
         return response()
                 ->json(compact("treasuries"));
     }
+
+    /**
+     * Get Payments to a Beneficiary on a particular date
+     * 
+     * Get Payments to a Beneficiary on a particular date
+     * 
+     * @bodyParam  beneficiary_name string required Beneficiary Name.
+     * @bodyParam  date string required The payment date.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getByBeneficiaryOnDate(Request $request)
+    {
+        $request->validate([
+            'date' => 'required|date_format:Y-m-d',  
+            'beneficiary_name' => 'required|string', 
+        ]);
+
+        $date = \Carbon\Carbon::parse($request->date)->toDateTimeString();
+        $treasuries = Treasury::where("beneficiary_name", $request->beneficiary_name)
+                                ->where("date", $date)
+                                ->get();
+
+        return response()
+                ->json(compact("treasuries"));
+    }
+
+    
 }

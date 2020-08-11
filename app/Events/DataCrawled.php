@@ -16,14 +16,17 @@ class DataCrawled
 
     public $filename;
 
+    public $date;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(string $filename)
+    public function __construct(string $filename, string $date)
     {
         $this->filename = $filename;
+        $this->date = $date;
     }
 
     /**

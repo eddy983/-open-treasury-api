@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Treasury;
 use App\TreasuryTemporary;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,7 @@ class TreasuryTemporaryController extends Controller
         //Log::info("GET /treasury");
         $count = isset($_GET['count']) ? $_GET['count'] : 10;
     
-        $treasuries = TreasuryTemporary::paginate($count);
+        $treasuries = TreasuryTemporary::where("status", "PENDING")->orderBy("date", "DESC")->paginate($count);
     
         return response()
                 ->json(compact("treasuries"));
@@ -211,5 +212,115 @@ class TreasuryTemporaryController extends Controller
                 ->json([
                     "message" => "Temporary Treasury record with id {$treasury->id} deleted"
                 ]);
+    }
+
+    /**
+     * Accept a Temporary Treasury Record
+     * 
+     * Accept a crawled data into the main database
+     * 
+     * @urlParam  id required The ID of the treasury record /{id}. 
+     * 
+     * @bodyParam  date string required The date of the payment.
+     * @bodyParam  payment_number string required The payment number.
+     * @bodyParam  payer_code int required The Payer Code.
+     * @bodyParam  mother_ministry string required The Mother Ministry.
+     * @bodyParam  organization_name string required The Organization Name.
+     * @bodyParam  beneficiary_name string required The Organization Name.
+     * @bodyParam  amount int required The Amount Paid.
+     * @bodyParam  description string required The Payment Description.
+     * @bodyParam  irregularities string required The Irregularities.
+     *
+     * @param  \App\TreasuryTemporary  $treasury
+     * @return \Illuminate\Http\Response
+     */
+
+    public function accept(Request $request, $id)
+    {
+        $treasury = TreasuryTemporary::find($id);
+
+        if(!$treasury){
+            return response()
+                    ->json([
+                        "message" => "Temporary Treasury record with ID ({$id}) doesnt exist"
+                    ], 404);
+        }
+
+        if($treasury->status !== "PENDING")
+        {
+            return response()
+                    ->json([
+                        "message" => "Temporary Treasury record with ID ({$id}) has already been acted on. Status: $treasury->status"
+                    ], 400);            
+        }
+
+        $request->validate([
+            'date' => 'required|date_format:Y-m-d',
+            'payment_number' => 'required',
+            'payer_code' => 'required|integer',
+            'mother_ministry' => 'required',
+            'organization_name' => 'required',
+            'beneficiary_name' => 'required',
+            'description' => 'required',
+            'irregularities' => 'required',
+            'amount' => 'required|integer',
+        ]);
+
+        $new_treasury = new Treasury($request->all());
+        $new_treasury->save();
+
+        $treasury->update([
+            'status' => "ACCEPTED",
+            'merged_treasury_id' => $new_treasury->id
+        ]);
+
+        return response()
+                ->json([
+                    "message" => "Temporary Treasury record with ID ({$id}) has now been merged"
+                ], 200); 
+        
+        
+    }
+
+
+    /**
+     * Accept a Temporary Treasury Record
+     * 
+     * Accept a crawled data into the main database
+     * 
+     * @urlParam  id required The ID of the treasury record /{id}.  
+     *
+     * @param  \App\TreasuryTemporary  $treasury
+     * @return \Illuminate\Http\Response
+     */
+
+    public function declined(Request $request, $id)
+    {
+        $treasury = TreasuryTemporary::find($id);
+
+        if(!$treasury){
+            return response()
+                    ->json([
+                        "message" => "Temporary Treasury record with ID ({$id}) doesnt exist"
+                    ], 404);
+        }
+
+        if($treasury->status !== "PENDING")
+        {
+            return response()
+                    ->json([
+                        "message" => "Temporary Treasury record with ID ({$id}) has already been acted on. Status: $treasury->status"
+                    ], 400);            
+        }
+
+        $treasury->update([
+            'status' => "DECLINED"
+        ]);
+
+        return response()
+                ->json([
+                    "message" => "Temporary Treasury record with ID ({$id}) is now declined"
+                ], 200);         
+        
     }
 }

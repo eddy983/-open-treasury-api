@@ -12,6 +12,13 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 class TreasuryImport implements ToModel
 {
 
+    public $date;
+
+    public function __construct(string $date)
+    {
+        $this->date = $date;
+    }
+
     /**
      * @return int
      */
@@ -29,24 +36,30 @@ class TreasuryImport implements ToModel
     }
 
     public function model(array $row)
-    {
-        /*return new User([
-           'name'     => $row[0],
-           'email'    => $row[1],
-           'password' => Hash::make($row[2]),
-        ]);*/
-        Log::info("TreasuryImport() initialized");
-        $day = empty($row[1]) ? '01' : (int) trim($row[1]);
+    { 
+        Log::info("TreasuryImport() initialized. Date: $this->date");
+        $year = explode('-', $this->date)[2];
+        $month = explode('-', $this->date)[1];
+        $day = explode('-', $this->date)[0];
+        $date = Carbon::create($year . "20", $month, $day, 0, 0 ,0,  null);
+
+        Log::info("Date: $date");
+
+        /*$day = empty($row[1]) ? '01' : (int) trim($row[1]);
         $month = empty($row[1]) ? '01' : (int) trim($row[2]);
-        $year = empty($row[1]) ? '2021' : (int) trim($row[3]);
+        $year = empty($row[1]) ? '2021' : (int) trim($row[3]);*/
+
+        //$day = empty($this->date) ? '01' : (int) trim($row[1]);
+        //$month = empty($this->date) ? '01' : (int) trim($row[2]);
+        //$year = empty($this->date) ? '2021' : (int) trim($row[3]);
 
         return new TreasuryTemporary([ 
             //'date' => trim($row[0]),
             //'date' => Carbon::create($year, $month, $day, 0, 0 ,0,  null),
-            'date' => Carbon::now()->toDateString(),
-            'day' => Carbon::now()->day,
-            'month' => Carbon::now()->month,
-            'year' => Carbon::now()->year,
+            'date' => $date->toDateString(),
+            'day' => $date->day,
+            'month' => $date->month,
+            'year' => $date->year,
             'payment_number' => trim($row[0]),
             'payer_code' => (int) trim($row[1]),
             //'mother_ministry' => (string) trim($row[6]),

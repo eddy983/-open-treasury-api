@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/payments/multiple', 'InsightController@multiplePayments');
+// transactions on a particular date
+Route::post('/payments/on-date', 'TreasuryController@getByBeneficiaryOnDate')->name('payments.beneficiary');
 
 Route::get('/documentation', function(){
     return view("apidoc.index");
@@ -86,6 +88,8 @@ Route::group([
     //Route::get('/without-names', 'InsightController@withoutNames');  
 });
 Route::get('/payments/without-names', 'InsightController@withoutNames');
+
+
 
 
 

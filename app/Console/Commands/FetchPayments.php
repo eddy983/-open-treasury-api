@@ -80,8 +80,12 @@ class FetchPayments extends Command
         
             $data[] = compact('href', 'title', 'text'); 
 
-            if(strpos($href, 'JUNE') !== false)
-                DownloadPaymentDocument::dispatch($href);
+            if(strpos($href, 'JULY') !== false){
+                $exp = explode('/', $href);
+                $last_element = $exp[count($exp)-1];
+                $date = str_replace(".xlsx", "", $last_element);
+                DownloadPaymentDocument::dispatch($href, $date); 
+            }  
                       
         });
      

@@ -17,14 +17,17 @@ class DownloadPaymentDocument implements ShouldQueue
 
     public $href;
 
+    public $date;
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(string $href)
+    public function __construct(string $href, string $date)
     { 
         $this->href = $href; 
+        $this->date = $date; 
     }
 
     /**
@@ -35,7 +38,8 @@ class DownloadPaymentDocument implements ShouldQueue
     public function handle()
     {
         Log::info("Job DownloadPaymentDocument() Dispatched.");
-        $href = $this->href; 
+        $href = $this->href;
+        $date = $this->date; 
                 
         $arrContextOptions=[
             "ssl"=>[ "verify_peer"=>false, "verify_peer_name"=>false]
@@ -56,6 +60,6 @@ class DownloadPaymentDocument implements ShouldQueue
         }
             
 
-        event(new DataCrawled("data/excel/$name"));
+        event(new DataCrawled("data/excel/$name", $date));
     }
 }
