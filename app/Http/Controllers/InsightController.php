@@ -17,7 +17,7 @@ class InsightController extends Controller
      */
     public function __construct()
     {        
-        //$this->middleware('auth:api');        
+        $this->middleware('auth:api');        
     }
     /**
      * Duplicate Payments to same Beneficiary
@@ -50,7 +50,7 @@ class InsightController extends Controller
         } 
         $end_time = \Carbon\Carbon::now();
         return response()
-                ->json(compact('start_time', 'end_time','payments'));
+                ->json(compact('payments'));
     }
 
     /**
@@ -77,5 +77,25 @@ class InsightController extends Controller
         $description = "Payments without Organization, Beneficiary or Ministry Name";                    
         return response()
                 ->json(compact('description','payments'));
+    }
+
+    /**
+     * Statistics Overview
+     * 
+     * 
+     * @group  Analytics
+     *  
+     */
+    public function overviewStatistics()
+    {
+
+        $omitted_details = Treasury::where('beneficiary_name', '=', '')
+                                    ->orWhere('organization_name', '=', '')
+                                    ->orWhere('mother_ministry', '=', '')
+                                    ->orderby('date', 'DESC')
+                                    ->count();
+        
+        return response()
+            ->json(compact('omitted_details'));
     }
 }

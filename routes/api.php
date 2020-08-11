@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/insight/overview', 'InsightController@overviewStatistics');
 Route::get('/payments/multiple', 'InsightController@multiplePayments');
 // transactions on a particular date
 Route::post('/payments/on-date', 'TreasuryController@getByBeneficiaryOnDate')->name('payments.beneficiary');
@@ -78,6 +80,8 @@ Route::group([
     Route::delete('/{id}', 'TreasuryTemporaryController@destroy');
     Route::get('/{id}', 'TreasuryTemporaryController@show');
     Route::put('/{id}', 'TreasuryTemporaryController@update');
+    Route::post('/{id}/accept', 'TreasuryTemporaryController@accept');
+    Route::post('/{id}/decline', 'TreasuryTemporaryController@decline');
 
 });
 

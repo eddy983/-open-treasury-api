@@ -258,13 +258,13 @@ class TreasuryTemporaryController extends Controller
                     ], 404);
         }
 
-        if($treasury->status !== "PENDING")
+        /*if($treasury->status !== "PENDING")
         {
             return response()
                     ->json([
                         "message" => "Temporary Treasury record with ID ({$id}) has already been acted on. Status: $treasury->status"
                     ], 400);            
-        }
+        }*/
 
         $request->validate([
             'date' => 'required|date_format:Y-m-d',
@@ -272,7 +272,7 @@ class TreasuryTemporaryController extends Controller
             'payer_code' => 'required|integer',
             'mother_ministry' => 'required',
             'organization_name' => 'required',
-            'beneficiary_name' => 'required',
+            'beneficiary_name' => 'present|string',
             'description' => 'required',
             'irregularities' => 'required',
             'amount' => 'required|integer',
@@ -308,7 +308,7 @@ class TreasuryTemporaryController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function declined(Request $request, $id)
+    public function decline(Request $request, $id)
     {
         $treasury = TreasuryTemporary::find($id);
 
