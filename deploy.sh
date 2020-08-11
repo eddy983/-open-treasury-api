@@ -1,4 +1,4 @@
 git add .
 git commit -m "update"
 git push
-sls delpoy --aws-profile budgit
+sls deploy --aws-profile budgit
