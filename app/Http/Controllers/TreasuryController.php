@@ -243,9 +243,9 @@ class TreasuryController extends Controller
     {
         //Log::info("GET /treasury");
         $count = isset($_GET['count']) ? $_GET['count'] : 10;
-        $search_term = isset($_GET['search_term']) ? $_GET['search_term'] : "";
-        $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : null;
-        $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : null;  
+        $search_term = isset($_GET['search_term']) && !empty($_GET['search_term']) ? $_GET['search_term'] : "";
+        $start_date = isset($_GET['start_date']) && !empty($_GET['start_date']) ? $_GET['start_date'] : null;
+        $end_date = isset($_GET['end_date']) && !empty($_GET['end_date']) ? $_GET['end_date'] : null;  
         
         if(!is_null($start_date) && !is_null($end_date)){
             $start_date = \Carbon\Carbon::parse($start_date)->toDateTimeString();
