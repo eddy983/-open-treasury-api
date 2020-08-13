@@ -130,7 +130,7 @@ class InsightController extends Controller
                 $query->where('beneficiary_name', 'not like', "%$exclude%");
             }
             
-        })->paginate($count);
+        })->orderby('date', 'DESC')->paginate($count);
          
 
         return response()
