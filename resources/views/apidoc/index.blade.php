@@ -88,8 +88,8 @@ fetch(url, {
 );
 
 let params = {
-    "count": "1",
-    "page": "13",
+    "count": "15",
+    "page": "15",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -147,7 +147,7 @@ fetch(url, {
 );
 
 let params = {
-    "count": "12",
+    "count": "10",
     "page": "20",
 };
 Object.keys(params)
@@ -207,8 +207,8 @@ fetch(url, {
 );
 
 let params = {
-    "count": "16",
-    "page": "2",
+    "count": "3",
+    "page": "18",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -262,7 +262,7 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/temporary-treasury/ipsum"
+    "http://localhost:8000/api/temporary-treasury/nemo"
 );
 
 let headers = {
@@ -302,7 +302,7 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/temporary-treasury/qui"
+    "http://localhost:8000/api/temporary-treasury/sint"
 );
 
 let headers = {
@@ -349,7 +349,7 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/temporary-treasury/dolor"
+    "http://localhost:8000/api/temporary-treasury/et"
 );
 
 let headers = {
@@ -358,15 +358,15 @@ let headers = {
 };
 
 let body = {
-    "date": "blanditiis",
-    "payment_number": "omnis",
-    "payer_code": 15,
-    "mother_ministry": "quo",
+    "date": "expedita",
+    "payment_number": "nemo",
+    "payer_code": 5,
+    "mother_ministry": "earum",
     "organization_name": "rem",
-    "beneficiary_name": "suscipit",
-    "amount": 7,
-    "description": "iure",
-    "irregularities": "eum"
+    "beneficiary_name": "libero",
+    "amount": 17,
+    "description": "praesentium",
+    "irregularities": "expedita"
 }
 
 fetch(url, {
@@ -470,7 +470,7 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/temporary-treasury/facere/accept"
+    "http://localhost:8000/api/temporary-treasury/quaerat/accept"
 );
 
 let headers = {
@@ -479,15 +479,15 @@ let headers = {
 };
 
 let body = {
-    "date": "rerum",
-    "payment_number": "autem",
-    "payer_code": 18,
-    "mother_ministry": "eum",
-    "organization_name": "laborum",
-    "beneficiary_name": "voluptatibus",
-    "amount": 8,
-    "description": "magnam",
-    "irregularities": "quos"
+    "date": "ea",
+    "payment_number": "iste",
+    "payer_code": 5,
+    "mother_ministry": "et",
+    "organization_name": "exercitationem",
+    "beneficiary_name": "unde",
+    "amount": 5,
+    "description": "quia",
+    "irregularities": "ut"
 }
 
 fetch(url, {
@@ -591,7 +591,7 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/temporary-treasury/dolorem/decline"
+    "http://localhost:8000/api/temporary-treasury/quidem/decline"
 );
 
 let headers = {
@@ -642,8 +642,8 @@ let headers = {
 };
 
 let body = {
-    "beneficiary_name": "fugiat",
-    "date": "id"
+    "beneficiary_name": "animi",
+    "date": "dolor"
 }
 
 fetch(url, {
@@ -692,8 +692,8 @@ fetch(url, {
 );
 
 let params = {
-    "count": "5",
-    "page": "7",
+    "count": "12",
+    "page": "13",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -756,15 +756,15 @@ let headers = {
 };
 
 let body = {
-    "date": "asperiores",
-    "payment_number": "sint",
-    "payer_code": 2,
-    "mother_ministry": "cumque",
-    "organization_name": "tempora",
-    "beneficiary_name": "dignissimos",
-    "amount": 20,
-    "description": "nisi",
-    "irregularities": "consequatur"
+    "date": "libero",
+    "payment_number": "necessitatibus",
+    "payer_code": 8,
+    "mother_ministry": "dolor",
+    "organization_name": "sequi",
+    "beneficiary_name": "quia",
+    "amount": 2,
+    "description": "fuga",
+    "irregularities": "ut"
 }
 
 fetch(url, {
@@ -855,11 +855,11 @@ fetch(url, {
 );
 
 let params = {
-    "search_term": "doloremque",
-    "start_date": "reprehenderit",
-    "end_date": "sint",
-    "count": "15",
-    "page": "2",
+    "search_term": "ut",
+    "start_date": "beatae",
+    "end_date": "velit",
+    "count": "1",
+    "page": "4",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -928,7 +928,7 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/treasury/eos"
+    "http://localhost:8000/api/treasury/voluptas"
 );
 
 let headers = {
@@ -968,7 +968,7 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/treasury/excepturi"
+    "http://localhost:8000/api/treasury/et"
 );
 
 let headers = {
@@ -1015,7 +1015,7 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/treasury/rerum"
+    "http://localhost:8000/api/treasury/dolorem"
 );
 
 let headers = {
@@ -1024,15 +1024,15 @@ let headers = {
 };
 
 let body = {
-    "date": "eos",
-    "payment_number": "eos",
-    "payer_code": 14,
-    "mother_ministry": "nemo",
-    "organization_name": "qui",
-    "beneficiary_name": "amet",
-    "amount": 15,
-    "description": "aliquam",
-    "irregularities": "consequatur"
+    "date": "rerum",
+    "payment_number": "id",
+    "payer_code": 3,
+    "mother_ministry": "laborum",
+    "organization_name": "sit",
+    "beneficiary_name": "est",
+    "amount": 19,
+    "description": "eaque",
+    "irregularities": "quas"
 }
 
 fetch(url, {
@@ -1137,7 +1137,7 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/users/aut"
+    "http://localhost:8000/api/users/dolorem"
 );
 
 let headers = {
@@ -1146,8 +1146,8 @@ let headers = {
 };
 
 let body = {
-    "name": "est",
-    "email": "praesentium"
+    "name": "consectetur",
+    "email": "voluptatem"
 }
 
 fetch(url, {
@@ -1208,7 +1208,7 @@ fetch(url, {
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8000/api/users/nemo"
+    "http://localhost:8000/api/users/quia"
 );
 
 let headers = {
@@ -1257,10 +1257,10 @@ let headers = {
 };
 
 let body = {
-    "name": "ipsum",
-    "email": "reiciendis",
-    "password": "voluptate",
-    "password_repeat": "magnam"
+    "name": "recusandae",
+    "email": "voluptates",
+    "password": "est",
+    "password_repeat": "quasi"
 }
 
 fetch(url, {
@@ -1326,8 +1326,8 @@ let headers = {
 };
 
 let body = {
-    "email": "sapiente",
-    "password": "dolor"
+    "email": "hic",
+    "password": "blanditiis"
 }
 
 fetch(url, {

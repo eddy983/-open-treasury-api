@@ -98,4 +98,42 @@ class InsightController extends Controller
         return response()
             ->json(compact('omitted_details'));
     }
+
+    /**
+     * Personal Account payments
+     * 
+     * Payments to individual personal accounts
+     * 
+     * @group  Analytics
+     * 
+     * 
+     * @queryParam  count int The number of records to return. Example 25
+     * @queryParam  page int The page of the records. Example 5
+     *  
+     */
+    public function personalAccounts()
+    {
+        $count = isset($_GET['count']) ? $_GET['count'] : 10;
+        $excludes = [
+            "ltd", "LIMITED","limited","LTD","NAF","MINISTRY","FEDERAL","AGENCY", "NATIONAL","DEPARTMENT",
+            "NIGERIA", "NIGERIAN","ASSOCIATION","UNION","COOP","TAX","IBTC","NHF","Pension","IPPIS","NAFDAC",
+            "STAFF", "DEDUCTION", "NHIS", "NUC", "CTSS", "CTLS", "BOND", "LOAN", "INSTITUTE", "REVENUE",
+            "COOPERATIVE", "SOCIETY", "FAAC", "COMMISSION", "NAF", "BURSARY", "BANK", "UNIVERSITY", "ELECTRICITY",
+            "CBN", "OFFICE", "SECTOR", "DEFENCE", "CTCS", "STATE", "COUNCIL", "COLLEGE", "FERMA", "WELFARE",
+            "COMMUNICATIONS", "CTSS", "NHIS", "PTAD", "RNA","PRESIDENTIAL", "OSGOF", "FUND", "FMC", "Deduction",
+            "RESEARCH","TRAINING","AUTHORITY", "PLC", "BUK","& CO","MULTIPURPOSE"
+        ];
+
+        //Treasury::where
+        $treasuries = Treasury::where(function($query) use ($excludes) {
+            foreach($excludes as $exclude){
+                $query->where('beneficiary_name', 'not like', "%$exclude%");
+            }
+            
+        })->paginate($count);
+         
+
+        return response()
+                ->json(compact('treasuries')); 
+    }
 }

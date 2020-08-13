@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/users/{id}', 'UserController@update');
 Route::delete('/users/{id}', 'UserController@delete');
 Route::get('/insight/overview', 'InsightController@overviewStatistics');
+Route::get('/payments/personal-accounts', 'InsightController@personalAccounts');
 Route::get('/payments/multiple', 'InsightController@multiplePayments');
 // transactions on a particular date
 Route::post('/payments/on-date', 'TreasuryController@getByBeneficiaryOnDate')->name('payments.beneficiary');
