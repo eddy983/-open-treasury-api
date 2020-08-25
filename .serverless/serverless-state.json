@@ -246,7 +246,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/open-treasury-api/v1/1598356997220-2020-08-25T12:03:17.220Z/open-treasury-api.zip"
+                "S3Key": "serverless/open-treasury-api/v1/1598357573625-2020-08-25T12:12:53.625Z/open-treasury-api.zip"
               },
               "FunctionName": "open-treasury-api-v1-website",
               "Handler": "public/index.php",
@@ -303,14 +303,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "WebsiteLambdaVersionDVYnu7UsxT7lDz6CkMKSBZFPl7p8mqgzvdF4Nt528": {
+          "WebsiteLambdaVersionMmMNVa7Ctf64FhDsVzzD5qOLqZsBubcNZH21HLwhw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "WebsiteLambdaFunction"
               },
-              "CodeSha256": "4NCbNhh0jaQqkb0bohTi3NVm7q8moor+9iYeU6mf9Lg="
+              "CodeSha256": "X6TjMg/L0IsCsWnPd34q6OTba4VzNeeYJRfq6NyG4MM="
             }
           },
           "ArtisanLambdaFunction": {
@@ -320,7 +320,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/open-treasury-api/v1/1598356997220-2020-08-25T12:03:17.220Z/open-treasury-api.zip"
+                "S3Key": "serverless/open-treasury-api/v1/1598357573625-2020-08-25T12:12:53.625Z/open-treasury-api.zip"
               },
               "FunctionName": "open-treasury-api-v1-artisan",
               "Handler": "artisan",
@@ -378,14 +378,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "ArtisanLambdaVersionLMSuaJW7fPRqXwePj2991vjt4UBaSyCQxewnOOUhI": {
+          "ArtisanLambdaVersioncDREHwY6n2FNIoiq4ZEG5t8HO38DYQrLHXa3JWys0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ArtisanLambdaFunction"
               },
-              "CodeSha256": "4NCbNhh0jaQqkb0bohTi3NVm7q8moor+9iYeU6mf9Lg="
+              "CodeSha256": "X6TjMg/L0IsCsWnPd34q6OTba4VzNeeYJRfq6NyG4MM="
             }
           },
           "CrawlPaymentsLambdaFunction": {
@@ -395,7 +395,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/open-treasury-api/v1/1598356997220-2020-08-25T12:03:17.220Z/open-treasury-api.zip"
+                "S3Key": "serverless/open-treasury-api/v1/1598357573625-2020-08-25T12:12:53.625Z/open-treasury-api.zip"
               },
               "FunctionName": "open-treasury-api-v1-crawlPayments",
               "Handler": "artisan",
@@ -453,14 +453,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "CrawlPaymentsLambdaVersion09QVUPASopB5IDbC1j0SN1NxbOajHCpBmldc50F4": {
+          "CrawlPaymentsLambdaVersionGS4BxE1jZRFCRAXAIowOV6ugUxS9fWB0eYxgJiOdXvI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "CrawlPaymentsLambdaFunction"
               },
-              "CodeSha256": "4NCbNhh0jaQqkb0bohTi3NVm7q8moor+9iYeU6mf9Lg="
+              "CodeSha256": "X6TjMg/L0IsCsWnPd34q6OTba4VzNeeYJRfq6NyG4MM="
             }
           },
           "QueueLambdaFunction": {
@@ -470,7 +470,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/open-treasury-api/v1/1598356997220-2020-08-25T12:03:17.220Z/open-treasury-api.zip"
+                "S3Key": "serverless/open-treasury-api/v1/1598357573625-2020-08-25T12:12:53.625Z/open-treasury-api.zip"
               },
               "FunctionName": "open-treasury-api-v1-queue",
               "Handler": "artisan",
@@ -528,14 +528,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "QueueLambdaVersionSjlttE9hAOJQuN21AKthkOeh3LLVI26fLFiD38MpFlA": {
+          "QueueLambdaVersionQhNEhGBqE15Z1vPOYuw9Z6R1s7HA3Vlqcxj3kJfs": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "QueueLambdaFunction"
               },
-              "CodeSha256": "4NCbNhh0jaQqkb0bohTi3NVm7q8moor+9iYeU6mf9Lg="
+              "CodeSha256": "X6TjMg/L0IsCsWnPd34q6OTba4VzNeeYJRfq6NyG4MM="
             }
           },
           "ArtisanEventsRuleSchedule1": {
@@ -767,7 +767,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1598356976659": {
+          "ApiGatewayDeployment1598357552709": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -926,7 +926,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/open-treasury-api/v1/1598356997220-2020-08-25T12:03:17.220Z/custom-resources.zip"
+                "S3Key": "serverless/open-treasury-api/v1/1598357573625-2020-08-25T12:12:53.625Z/custom-resources.zip"
               },
               "FunctionName": "open-treasury-api-v1-custom-resource-apigw-cw-role",
               "Handler": "apiGatewayCloudWatchRole/handler.handler",
@@ -1106,25 +1106,25 @@
           "WebsiteLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "WebsiteLambdaVersionDVYnu7UsxT7lDz6CkMKSBZFPl7p8mqgzvdF4Nt528"
+              "Ref": "WebsiteLambdaVersionMmMNVa7Ctf64FhDsVzzD5qOLqZsBubcNZH21HLwhw"
             }
           },
           "ArtisanLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ArtisanLambdaVersionLMSuaJW7fPRqXwePj2991vjt4UBaSyCQxewnOOUhI"
+              "Ref": "ArtisanLambdaVersioncDREHwY6n2FNIoiq4ZEG5t8HO38DYQrLHXa3JWys0"
             }
           },
           "CrawlPaymentsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CrawlPaymentsLambdaVersion09QVUPASopB5IDbC1j0SN1NxbOajHCpBmldc50F4"
+              "Ref": "CrawlPaymentsLambdaVersionGS4BxE1jZRFCRAXAIowOV6ugUxS9fWB0eYxgJiOdXvI"
             }
           },
           "QueueLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "QueueLambdaVersionSjlttE9hAOJQuN21AKthkOeh3LLVI26fLFiD38MpFlA"
+              "Ref": "QueueLambdaVersionQhNEhGBqE15Z1vPOYuw9Z6R1s7HA3Vlqcxj3kJfs"
             }
           },
           "ServiceEndpoint": {
@@ -1481,7 +1481,7 @@
     "artifact": "/Users/gbengaoni/Desktop/Budgit Projects/open-treasury-api/.serverless/open-treasury-api.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/open-treasury-api/v1/1598356997220-2020-08-25T12:03:17.220Z",
+    "artifactDirectoryName": "serverless/open-treasury-api/v1/1598357573625-2020-08-25T12:12:53.625Z",
     "artifact": "open-treasury-api.zip"
   }
 }

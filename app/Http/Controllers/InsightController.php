@@ -6,6 +6,7 @@ use \Carbon\Carbon;
 use App\Treasury;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class InsightController extends Controller
 {
@@ -102,6 +103,7 @@ class InsightController extends Controller
         }
 
         if(isset($category) && !is_null($category)){
+            Log::info("cat");
             $payments->where($category, '=', ''); 
         }else{ 
             $payments->where('beneficiary_name', '=', '')
@@ -112,20 +114,24 @@ class InsightController extends Controller
 
         
         if (isset($search_term) && !empty($search_term) && !is_null($search_term)) {
+            Log::info("hi");
             $payments->whereRaw('MATCH (mother_ministry, organization_name,beneficiary_name,description) AGAINST (?)' , array($search_term));
         }
         
+        if( isset($csv) && $csv === "true" ){
+            $payments = $payments->orderby('date', 'DESC')->get();
+            return $this->exportCSV($payments);
+        }
+
         $payments = $payments->orderby('date', 'DESC')
-                    ->paginate($count);         
+                    ->paginate($count);        
         
 
 
          
         $description = "Payments without Organization, Beneficiary or Ministry Name";  
         
-        if( $csv === "true" ){
-            
-        }
+        
         return response()
                 ->json(compact('description','payments'));
     }
@@ -185,5 +191,25 @@ class InsightController extends Controller
 
         return response()
                 ->json(compact('treasuries')); 
+    }
+
+    private function exportCSV($collection)
+    {
+        $csv = \League\Csv\Writer::createFromFileObject(new \SplTempFileObject);
+
+        $csv->insertOne(array_keys($collection[0]->getAttributes()));
+    
+        foreach ($collection as $record) {
+            $csv->insertOne($record->toArray());
+        }
+
+        $filePath = 'csv/' . "test.csv";
+        Storage::disk('s3')->put($filePath, stream_get_contents(fopen('data://text/plain,', $csv , 'r')), [ 'visibility' => 'public']);
+    
+        return response((string) $csv, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Transfer-Encoding' => 'binary',
+            'Content-Disposition' => 'attachment; filename="people.csv"',
+        ]);
     }
 }
