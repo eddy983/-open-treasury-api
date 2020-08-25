@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Treasury;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class TreasuryController extends Controller
 {

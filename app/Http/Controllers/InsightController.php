@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use \Carbon\Carbon;
 use App\Treasury;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class InsightController extends Controller
 {
@@ -61,18 +63,63 @@ class InsightController extends Controller
      * @group  Analytics
      * 
      * @queryParam  count int The number of records to return. Example 10
+     * @queryParam  category string Narrow result down to category. Example beneficiary_name,organization_name,mother_ministry
      * @queryParam  page int The page of the records. Example 3
+     * @queryParam  start_date string Start Date. Example 2018-09-27
+     * @queryParam  search_term string Narrow Result down by a search term. Example Youths society
      */
 
-    public function withoutNames()
+    public function withoutNames(Treasury $treasury)
     {
+        extract($_GET);
         
-        $count = isset($_GET['count']) ? $_GET['count'] : 10;
-        $payments = Treasury::where('beneficiary_name', '=', '')
-                            ->orWhere('organization_name', '=', '')
-                            ->orWhere('mother_ministry', '=', '')
-                            ->orderby('date', 'DESC')
-                            ->paginate($count);
+        $count = $count ?? 10; 
+
+        $validator = \Validator::make([
+            "category" => $category ?? null,
+            "search_term" => $search_term ?? null,
+            "start_date" => $start_date ?? null,
+            "end_date" => $end_date ?? null,
+            "count" => $count
+        ], [
+            'category' => 'nullable|string|in:beneficiary_name,organization_name,mother_ministry',
+            'search_term' => 'nullable|string|max:100',
+            'start_date' => 'nullable|date_format:Y-m-d',
+            'end_date' => 'nullable|date_format:Y-m-d|required_with:start_date',
+            'count' => 'required|integer'
+        ]);
+        if ($validator->fails()) {
+            return response()
+                        ->json(["errors"=>$validator->errors()]);
+        }
+
+        $payments = $treasury->newQuery();
+
+        if(!is_null($start_date) && !is_null($end_date)){ 
+            $start_date = Carbon::parse($start_date)->toDateTimeString();
+            $end_date = Carbon::parse($end_date)->toDateTimeString();
+            $payments->whereBetween("date", [$start_date, $end_date]); 
+        }
+
+        if(!is_null($category)){
+            $payments->where($category, '=', ''); 
+        }else{ 
+            $payments->where('beneficiary_name', '=', '')
+                        ->orWhere('organization_name', '=', '')
+                        ->orWhere('mother_ministry', '=', '');
+        }
+        
+
+        
+        if (isset($search_term) && !empty($search_term) && !is_null($search_term)) {
+            $payments->whereRaw('MATCH (mother_ministry, organization_name,beneficiary_name,description) AGAINST (?)' , array($search_term));
+        }
+        
+        $payments = $payments->orderby('date', 'DESC')
+                    ->paginate($count);         
+        
+
+
          
         $description = "Payments without Organization, Beneficiary or Ministry Name";                    
         return response()
@@ -124,12 +171,11 @@ class InsightController extends Controller
             "RESEARCH","TRAINING","AUTHORITY", "PLC", "BUK","& CO","MULTIPURPOSE"
         ];
 
-        //Treasury::where
+         
         $treasuries = Treasury::where(function($query) use ($excludes) {
             foreach($excludes as $exclude){
                 $query->where('beneficiary_name', 'not like', "%$exclude%");
-            }
-            
+            }            
         })->orderby('date', 'DESC')->paginate($count);
          
 
