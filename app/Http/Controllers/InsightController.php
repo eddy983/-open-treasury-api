@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use \Carbon\Carbon;
 use App\Treasury;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -120,7 +121,10 @@ class InsightController extends Controller
         
         if( isset($csv) && $csv === "true" ){
             $payments = $payments->orderby('date', 'DESC')->get();
-            return $this->exportCSV($payments);
+            
+            $csvFileName = Str::slug("Multiple_Payments" . (isset($category) ? " by $category" : "") . (isset($search_term) ? " search $search_term" : "") . (isset($start_date) ? " from $start_date" : "") ?? "" . (isset($end_date) ? " to $end_date" : ""), "_") . ".csv";
+            
+            return $this->exportCSV($payments, $csvFileName);
         }
 
         $payments = $payments->orderby('date', 'DESC')
@@ -193,7 +197,7 @@ class InsightController extends Controller
                 ->json(compact('treasuries')); 
     }
 
-    private function exportCSV($collection)
+    private function exportCSV($collection, $name="test.csv")
     {
         $csv = \League\Csv\Writer::createFromFileObject(new \SplTempFileObject);
 
@@ -203,13 +207,21 @@ class InsightController extends Controller
             $csv->insertOne($record->toArray());
         }
 
-        $filePath = 'csv/' . "test.csv";
-        Storage::disk('s3')->put($filePath, stream_get_contents(fopen('data://text/plain,', $csv , 'r')), [ 'visibility' => 'public']);
-    
-        return response((string) $csv, 200, [
-            'Content-Type' => 'text/csv',
-            'Content-Transfer-Encoding' => 'binary',
-            'Content-Disposition' => 'attachment; filename="people.csv"',
-        ]);
+        $filePath = 'csv/' . $name;
+        
+        Storage::disk('s3')->put($filePath, $this->str_to_stream($csv), [ 'visibility' => 'public']);
+        
+        $url = Storage::disk('s3')->url($filePath);
+         
+        return response()
+                ->json(compact("url"));
+    }
+
+    private function str_to_stream(string $string) 
+    {
+        $stream = fopen('php://memory','r+');
+        fwrite($stream, $string);
+        rewind($stream);
+        return $stream;
     }
 }

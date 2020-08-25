@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Treasury;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class TreasuryController extends Controller
 {
@@ -283,6 +285,14 @@ class TreasuryController extends Controller
             $treasuries->whereRaw('MATCH (mother_ministry, organization_name,beneficiary_name,description) AGAINST (?)' , array($search_term));           
 
         
+        if( isset($csv) && $csv === "true" ){
+            $treasuries = $treasuries->orderby('date', 'DESC')->limit(2000)->get();
+            
+            $csvFileName = Str::slug("Payments" . (isset($category) ? " by $category" : "") . (isset($search_term) ? " search $search_term" : "") . (isset($start_date) ? " from $start_date" : "") ?? "" . (isset($end_date) ? " to $end_date" : ""), "_") . ".csv";
+            
+            return $this->exportCSV($treasuries, $csvFileName);
+        }
+
         $treasuries = $treasuries->orderby('date', 'DESC')
                                 ->paginate($count);
 
@@ -318,6 +328,34 @@ class TreasuryController extends Controller
 
         return response()
                 ->json(compact("treasuries"));
+    }
+
+    private function exportCSV($collection, $name="test.csv")
+    {
+        $csv = \League\Csv\Writer::createFromFileObject(new \SplTempFileObject);
+
+        $csv->insertOne(array_keys($collection[0]->getAttributes()));
+    
+        foreach ($collection as $record) {
+            $csv->insertOne($record->toArray());
+        }
+
+        $filePath = 'csv/' . $name;
+        
+        Storage::disk('s3')->put($filePath, $this->str_to_stream($csv), [ 'visibility' => 'public']);
+        
+        $url = Storage::disk('s3')->url($filePath);
+         
+        return response()
+                ->json(compact("url"));
+    }
+    
+    private function str_to_stream(string $string) 
+    {
+        $stream = fopen('php://memory','r+');
+        fwrite($stream, $string);
+        rewind($stream);
+        return $stream;
     }
 
     
