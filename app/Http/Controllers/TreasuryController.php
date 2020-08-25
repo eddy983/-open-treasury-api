@@ -270,7 +270,7 @@ class TreasuryController extends Controller
         $treasuries = $treasury->newQuery();
           
         
-        if(isset($start_date) && isset($end_date) && !is_null($start_date) && !is_null($end_date)){
+        if(!empty($start_date) && !empty($end_date) && isset($start_date) && isset($end_date) && !is_null($start_date) && !is_null($end_date)){
             $start_date = \Carbon\Carbon::parse($start_date)->toDateTimeString();
             $end_date = \Carbon\Carbon::parse($end_date)->toDateTimeString();
             $treasuries->whereBetween("date", [$start_date, $end_date]); 
