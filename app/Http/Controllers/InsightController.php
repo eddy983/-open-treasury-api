@@ -95,7 +95,7 @@ class InsightController extends Controller
 
         $payments = $treasury->newQuery();
 
-        if(isset($start_date) && !is_null($start_date) && !is_null($end_date)){ 
+        if(isset($start_date) && isset($end_date) && !is_null($start_date) && !is_null($end_date)){ 
             $start_date = Carbon::parse($start_date)->toDateTimeString();
             $end_date = Carbon::parse($end_date)->toDateTimeString();
             $payments->whereBetween("date", [$start_date, $end_date]); 

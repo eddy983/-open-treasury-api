@@ -231,6 +231,7 @@ class TreasuryController extends Controller
      * Shows a paginated list of search result
      * 
      * @queryParam  search_term string Search term. Example ajaokuta
+     * @queryParam  category string Narrow result down to category. Example beneficiary_name,organization_name,mother_ministry
      * @queryParam  start_date string Start Date. Example 2018-09-27
      * @queryParam  end_date string End Date. Example 2018-10-27
      * @queryParam  count int The number of records to return. Example 10
@@ -255,7 +256,7 @@ class TreasuryController extends Controller
             "end_date" => $end_date ?? null,
             "count" => $count
         ], [
-            'category' => 'nullable|string|in:beneficiary_name,organization_name,mother_ministry',
+            'category' => 'nullable|string|in:beneficiary_name,organization_name,mother_ministry,description',
             'search_term' => 'required|string|max:100',
             'start_date' => 'nullable|date_format:Y-m-d',
             'end_date' => 'nullable|date_format:Y-m-d|required_with:start_date',
@@ -269,13 +270,13 @@ class TreasuryController extends Controller
         $treasuries = $treasury->newQuery();
           
         
-        if(!is_null($start_date) && !is_null($end_date)){
+        if(isset($start_date) && isset($end_date) && !is_null($start_date) && !is_null($end_date)){
             $start_date = \Carbon\Carbon::parse($start_date)->toDateTimeString();
             $end_date = \Carbon\Carbon::parse($end_date)->toDateTimeString();
             $treasuries->whereBetween("date", [$start_date, $end_date]); 
         }
         
-        if(!is_null($category))
+        if(isset($category) && !is_null($category))
             $treasuries->whereRaw("MATCH ($category) AGAINST (?)" , array($search_term)); 
 
         else
