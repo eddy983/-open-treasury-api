@@ -240,24 +240,50 @@ class TreasuryController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function search()
+    public function search(Treasury $treasury)
     {
         //Log::info("GET /treasury");
-        $count = isset($_GET['count']) ? $_GET['count'] : 10;
-        $search_term = isset($_GET['search_term']) && !empty($_GET['search_term']) ? $_GET['search_term'] : "";
-        $start_date = isset($_GET['start_date']) && !empty($_GET['start_date']) ? $_GET['start_date'] : null;
-        $end_date = isset($_GET['end_date']) && !empty($_GET['end_date']) ? $_GET['end_date'] : null;  
+
+        extract($_GET);
+        
+        $count = $count ?? 10; 
+
+        $validator = \Validator::make([
+            "category" => $category ?? null,
+            "search_term" => $search_term ?? null,
+            "start_date" => $start_date ?? null,
+            "end_date" => $end_date ?? null,
+            "count" => $count
+        ], [
+            'category' => 'nullable|string|in:beneficiary_name,organization_name,mother_ministry',
+            'search_term' => 'required|string|max:100',
+            'start_date' => 'nullable|date_format:Y-m-d',
+            'end_date' => 'nullable|date_format:Y-m-d|required_with:start_date',
+            'count' => 'required|integer'
+        ]);
+        if ($validator->fails()) {
+            return response()
+                        ->json(["errors"=>$validator->errors()]);
+        }
+
+        $treasuries = $treasury->newQuery();
+          
         
         if(!is_null($start_date) && !is_null($end_date)){
             $start_date = \Carbon\Carbon::parse($start_date)->toDateTimeString();
             $end_date = \Carbon\Carbon::parse($end_date)->toDateTimeString();
-            $treasuries = Treasury::whereBetween("date", [$start_date, $end_date])
-                                    ->whereRaw('MATCH (mother_ministry, organization_name,beneficiary_name,description) AGAINST (?)' , array($search_term))
-                                    ->paginate($count);
-        }else{
-            $treasuries = Treasury::whereRaw('MATCH (mother_ministry, organization_name,beneficiary_name,description) AGAINST (?)' , array($search_term))
-                                    ->paginate($count);            
+            $treasuries->whereBetween("date", [$start_date, $end_date]); 
         }
+        
+        if(!is_null($category))
+            $treasuries->whereRaw("MATCH ($category) AGAINST (?)" , array($search_term)); 
+
+        else
+            $treasuries->whereRaw('MATCH (mother_ministry, organization_name,beneficiary_name,description) AGAINST (?)' , array($search_term));           
+
+        
+        $treasuries = $treasuries->orderby('date', 'DESC')
+                                ->paginate($count);
 
 
     
