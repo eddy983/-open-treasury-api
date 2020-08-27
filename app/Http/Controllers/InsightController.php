@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use \Carbon\Carbon;
 use App\Treasury;
+use App\Service\InsightService;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class InsightController extends Controller
 {
+    private $excludes = [];
 
     /**
      * Create a new AuthController instance.
@@ -21,7 +23,16 @@ class InsightController extends Controller
      */
     public function __construct()
     {        
-        $this->middleware('auth:api');        
+        $this->middleware('auth:api');
+        $this->excludes = [
+            "ltd", "LIMITED","limited","LTD","NAF","MINISTRY","FEDERAL","AGENCY", "NATIONAL","DEPARTMENT",
+            "NIGERIA", "NIGERIAN","ASSOCIATION","UNION","COOP","TAX","IBTC","NHF","Pension","IPPIS","NAFDAC",
+            "STAFF", "DEDUCTION", "NHIS", "NUC", "CTSS", "CTLS", "BOND", "LOAN", "INSTITUTE", "REVENUE",
+            "COOPERATIVE", "SOCIETY", "FAAC", "COMMISSION", "NAF", "BURSARY", "BANK", "UNIVERSITY", "ELECTRICITY",
+            "CBN", "OFFICE", "SECTOR", "DEFENCE", "CTCS", "STATE", "COUNCIL", "COLLEGE", "FERMA", "WELFARE",
+            "COMMUNICATIONS", "CTSS", "NHIS", "PTAD", "RNA","PRESIDENTIAL", "OSGOF", "FUND", "FMC", "Deduction",
+            "RESEARCH","TRAINING","AUTHORITY", "PLC", "BUK","& CO","MULTIPURPOSE"
+        ];        
     }
     /**
      * Duplicate Payments to same Beneficiary
@@ -152,12 +163,17 @@ class InsightController extends Controller
 
         $omitted_details = Treasury::where('beneficiary_name', '=', '')
                                     ->orWhere('organization_name', '=', '')
-                                    ->orWhere('mother_ministry', '=', '')
-                                    ->orderby('date', 'DESC')
+                                    ->orWhere('mother_ministry', '=', '') 
                                     ->count();
+
+        $personalAccounts = Treasury::where(function($query) {
+            foreach($this->excludes as $exclude){
+                $query->where('beneficiary_name', 'not like', "%$exclude%");
+            }            
+        })->count();
         
         return response()
-            ->json(compact('omitted_details'));
+            ->json(compact('omitted_details','personalAccounts'));
     }
 
     /**
@@ -175,23 +191,12 @@ class InsightController extends Controller
     public function personalAccounts()
     {
         $count = isset($_GET['count']) ? $_GET['count'] : 10;
-        $excludes = [
-            "ltd", "LIMITED","limited","LTD","NAF","MINISTRY","FEDERAL","AGENCY", "NATIONAL","DEPARTMENT",
-            "NIGERIA", "NIGERIAN","ASSOCIATION","UNION","COOP","TAX","IBTC","NHF","Pension","IPPIS","NAFDAC",
-            "STAFF", "DEDUCTION", "NHIS", "NUC", "CTSS", "CTLS", "BOND", "LOAN", "INSTITUTE", "REVENUE",
-            "COOPERATIVE", "SOCIETY", "FAAC", "COMMISSION", "NAF", "BURSARY", "BANK", "UNIVERSITY", "ELECTRICITY",
-            "CBN", "OFFICE", "SECTOR", "DEFENCE", "CTCS", "STATE", "COUNCIL", "COLLEGE", "FERMA", "WELFARE",
-            "COMMUNICATIONS", "CTSS", "NHIS", "PTAD", "RNA","PRESIDENTIAL", "OSGOF", "FUND", "FMC", "Deduction",
-            "RESEARCH","TRAINING","AUTHORITY", "PLC", "BUK","& CO","MULTIPURPOSE"
-        ];
-
          
-        $treasuries = Treasury::where(function($query) use ($excludes) {
-            foreach($excludes as $exclude){
+        $treasuries = Treasury::where(function($query) {
+            foreach($this->excludes as $exclude){
                 $query->where('beneficiary_name', 'not like', "%$exclude%");
             }            
-        })->orderby('date', 'DESC')->paginate($count);
-         
+        })->orderby('date', 'DESC')->paginate($count); 
 
         return response()
                 ->json(compact('treasuries')); 
