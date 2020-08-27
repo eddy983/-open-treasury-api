@@ -278,7 +278,7 @@ class TreasuryController extends Controller
             $treasuries->whereBetween("date", [$start_date, $end_date]); 
         }
         
-        if(isset($category) && !is_null($category))
+        if(isset($category) && !is_null($category) && !empty($category))
             $treasuries->whereRaw("MATCH ($category) AGAINST (?)" , array($search_term)); 
 
         else
@@ -349,7 +349,7 @@ class TreasuryController extends Controller
         return response()
                 ->json(compact("url"));
     }
-    
+
     private function str_to_stream(string $string) 
     {
         $stream = fopen('php://memory','r+');
