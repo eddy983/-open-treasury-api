@@ -56,7 +56,7 @@ class InsightController extends Controller
                             ->paginate($count);
         $results = [];
         foreach($payments as $payment){
-            $result = \DB::select("SELECT date, count(*) AS count FROM treasuries 
+            $result = \DB::select("SELECT date, count(*) AS count, SUM(amount) as totalAmountPaid FROM treasuries 
             where beneficiary_name = '$payment->beneficiary_name'
             GROUP BY date;");
              
