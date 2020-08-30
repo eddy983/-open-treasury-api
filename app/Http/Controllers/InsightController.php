@@ -49,7 +49,7 @@ class InsightController extends Controller
         $count = isset($_GET['count']) ? $_GET['count'] : 10;
         $start_time =  \Carbon\Carbon::now();
         
-        $payments = Treasury::select(\DB::raw('beneficiary_name, count(*) AS count'))
+        $payments = Treasury::select(\DB::raw('beneficiary_name, count(*) AS count, SUM(amount) as totalAmountPaid'))
                             ->groupBy('beneficiary_name')
                             ->orderBy('count', 'DESC')
                             //->limit($limit)
