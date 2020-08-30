@@ -275,7 +275,7 @@ class TreasuryTemporaryController extends Controller
             'beneficiary_name' => 'nullable|string',
             'description' => 'nullable',
             'irregularities' => 'nullable',
-            'amount' => 'nullable|integer',
+            'amount' => 'nullable|numeric|between:0,999999999999999999999.99',
         ]);
 
         $new_treasury = new Treasury($request->all());
