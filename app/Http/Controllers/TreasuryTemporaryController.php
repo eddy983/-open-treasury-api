@@ -268,14 +268,14 @@ class TreasuryTemporaryController extends Controller
 
         $request->validate([
             'date' => 'required|date_format:Y-m-d',
-            'payment_number' => 'required',
-            'payer_code' => 'required|integer',
-            'mother_ministry' => 'required',
-            'organization_name' => 'required',
-            'beneficiary_name' => 'present|string',
-            'description' => 'required',
-            'irregularities' => 'required',
-            'amount' => 'required|integer',
+            'payment_number' => 'nullable',
+            'payer_code' => 'nullable|integer',
+            'mother_ministry' => 'nullable',
+            'organization_name' => 'nullable',
+            'beneficiary_name' => 'nullable|string',
+            'description' => 'nullable',
+            'irregularities' => 'nullable',
+            'amount' => 'nullable|integer',
         ]);
 
         $new_treasury = new Treasury($request->all());
