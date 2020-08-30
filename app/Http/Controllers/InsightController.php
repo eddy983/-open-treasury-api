@@ -95,7 +95,7 @@ class InsightController extends Controller
             "end_date" => $end_date ?? null,
             "count" => $count
         ], [
-            'category' => 'nullable|string|in:beneficiary_name,organization_name,mother_ministry',
+            'category' => 'nullable|string|in:beneficiary_name,description,organization_name,mother_ministry',
             'search_term' => 'nullable|string|max:100',
             'start_date' => 'nullable|date_format:Y-m-d',
             'end_date' => 'nullable|date_format:Y-m-d|required_with:start_date',
