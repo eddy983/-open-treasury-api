@@ -278,8 +278,13 @@ class TreasuryTemporaryController extends Controller
             'amount' => 'nullable|numeric|between:0,999999999999999999999.99',
         ]);
 
+        $date = \Carbon\Carbon::createFromFormat("Y-m-d", $request->date);
         $new_treasury = new Treasury($request->all());
-        $new_treasury->save();
+        $new_treasury->day = $date->day;
+        $new_treasury->month = $date->month;
+        $new_treasury->year = $date->year;
+        $new_treasury->save(); 
+        
 
         $treasury->update([
             'status' => "ACCEPTED",
