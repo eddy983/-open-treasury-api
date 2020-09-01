@@ -279,10 +279,21 @@ class TreasuryTemporaryController extends Controller
         ]);
 
         $date = \Carbon\Carbon::createFromFormat("Y-m-d", $request->date);
-        $new_treasury = new Treasury($request->all());
-        $new_treasury->day = $date->day;
-        $new_treasury->month = $date->month;
-        $new_treasury->year = $date->year;
+        //$new_treasury = new Treasury($request->all());
+        $new_treasury = new Treasury([
+            'date' => $request->date,
+            'day' => $date->day,
+            'month' => $date->month,
+            'year' => $date->year,
+            'amount' => $request->amount ? $request->amount : 0,
+            'payer_code' => $request->payer_code ? $request->payer_code : 0,
+            'organization_name' => $request->organization_name ? $request->organization_name : "",
+            'payment_number' => $request->payment_number ? $request->payment_number : "",
+            'description' => $request->description ? $request->description : "",
+            'irregularities' => $request->irregularities ? $request->irregularities : "",
+            'beneficiary_name' => $request->beneficiary_name ? $request->beneficiary_name : "",
+            'mother_ministry' => $request->mother_ministry ? $request->mother_ministry : "",
+        ]); 
         $new_treasury->save(); 
         
 

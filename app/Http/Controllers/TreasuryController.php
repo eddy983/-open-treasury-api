@@ -88,7 +88,7 @@ class TreasuryController extends Controller
             'beneficiary_name' => 'required',
             'description' => 'required',
             'irregularities' => 'required',
-            'amount' => 'required|integer',
+            'amount' => 'required|numeric|between:0,999999999999999999999.99',
         ]);
   
         $date = \Carbon\Carbon::createFromFormat("Y-m-d", $request->date);
@@ -174,7 +174,7 @@ class TreasuryController extends Controller
             'beneficiary_name' => 'required',
             'description' => 'required',
             'irregularities' => 'required',
-            'amount' => 'required|integer',
+            'amount' => 'required|numeric|between:0,999999999999999999999.99',
         ]);
 
         $treasury = Treasury::find($id);
