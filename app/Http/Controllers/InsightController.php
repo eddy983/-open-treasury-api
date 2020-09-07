@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use \Carbon\Carbon;
 use App\Treasury;
+use App\TreasuryTemporary;
 use App\Service\InsightService;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -171,9 +172,11 @@ class InsightController extends Controller
                 $query->where('beneficiary_name', 'not like', "%$exclude%");
             }            
         })->count();
+
+        $crawledData = TreasuryTemporary::count();
         
         return response()
-            ->json(compact('omitted_details','personalAccounts'));
+            ->json(compact('omitted_details','personalAccounts', 'crawledData'));
     }
 
     /**
