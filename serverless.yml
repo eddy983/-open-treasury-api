@@ -26,15 +26,17 @@ provider:
         DB_USERNAME: ${ssm:/personalised_platform/DB_USERNAME}
         DB_PASSWORD: ${ssm:/personalised_platform/DB_PASSWORD}
         MIX_ASSET_URL: 'https://open-treasury-assets.s3.eu-west-2.amazonaws.com' 
-        MAIL_MAILER: 'smtp'
+        MAIL_MAILER: 'ses'
         MAIL_HOST: 'email-smtp.eu-west-2.amazonaws.com'
         MAIL_PORT: '587'
         MAIL_USERNAME: ${ssm:/personalised_platform/MAIL_USERNAME}
         MAIL_PASSWORD: ${ssm:/personalised_platform/MAIL_PASSWORD}
         MAIL_ENCRYPTION: 'tls'
         MAIL_FROM_ADDRESS: ${ssm:/personalised_platform/MAIL_FROM_ADDRESS} 
-        MAIL_FROM_NAME: 'BudgIT'
-
+        MAIL_FROM_NAME: 'BudgIT' 
+        SES_REGION: 'eu-west-2'
+        SES_KEY: ${ssm:/personalised_platform/DB_USERNAME}
+        SES_SECRET: ${ssm:/personalised_platform/DB_PASSWORD}
         AWS_ACCESS_KEY_IDD: ${ssm:/open_treasury/AWS_ACCESS_KEY_ID}
         AWS_SECRET_ACCESS_KEYY:	${ssm:/open_treasury/AWS_SECRET_ACCESS_KEY}
         #AWS_DEFAULT_REGION: 'eu-west-2'
