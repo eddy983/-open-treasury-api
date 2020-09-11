@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
+use App\Mail\UserRegisteredByAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -24,8 +27,8 @@ class RegisterController extends Controller
         $validator = \Validator::make($request->all(), [
             'name' => 'required|string', 
             'email' => 'required|string|unique:users,email', 
-            'password' => 'required|string',
-            'password_repeat' => 'required|string|same:password'
+            'password' => 'nullable|string',
+            'password_repeat' => 'nullable|string|same:password'
         ]);
         if ($validator->fails()) {
             return response()
@@ -34,16 +37,21 @@ class RegisterController extends Controller
                     ], 400);
         }
 
+        $randomPassword = Str::random(8);
+
         $user = new User([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($randomPassword)
         ]);
 
         $user->save();
 
+        Mail::to($user->email)
+             ->send(new UserRegisteredByAdmin($user, $randomPassword));
+
         return response()->json([
-            'message' => "User successfully created",
+            'message' => "User successfully created. Password credential sent.",
             "user" => $user
         ]);
     }
