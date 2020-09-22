@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-class TreasuryImport implements ToModel
+class TreasuryImport implements ToModel, WithChunkReading
 {
 
     public $date;
@@ -25,14 +26,50 @@ class TreasuryImport implements ToModel
     public function startRow(): int
     {
         return 20;
-    } 
+    }
+    
+    public function chunkSize(): int
+    {
+        return 100;
+    }
 
     /**
     * @param Collection $collection
     */
-    public function collection(Collection $collection)
+    public function collection_old_old(Collection $rows)
     {
-        //
+        foreach ($rows as $row) 
+        {
+            Log::info("TreasuryImport(). saving record. Date: $this->date");
+            $year = explode('-', $this->date)[2];
+            $month = explode('-', $this->date)[1];
+            $day = explode('-', $this->date)[0];
+            $date = Carbon::create($year . "20", $month, $day, 0, 0 ,0,  null);
+    
+            Log::info("Date: $date");
+
+            TreasuryTemporary::firstOrCreate(
+                [
+                    'date' => $date->toDateString(),
+                    'payment_number' => trim($row[0]),
+                    'payer_code' => (int) trim($row[1]),
+                    'amount' => (float) str_replace(',','',$row[4]),
+                ],
+                [ 
+                    
+                    'day' => $date->day,
+                    'month' => $date->month,
+                    'year' => $date->year, 
+                     
+                    'mother_ministry' => "",
+                    'organization_name' => (string) trim($row[2]),
+                    'beneficiary_name' => (string) trim($row[3]),
+                    'amount' => (float) str_replace(',','',$row[4]),
+                    'description' => (string) trim($row[5]), 
+                    'irregularities'  => "",
+                ]
+            );
+        }
     }
 
     public function model(array $row)

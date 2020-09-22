@@ -101,6 +101,7 @@ functions:
 
     queue:
         handler: artisan
+        memorySize: 256
         timeout: 600 # in seconds
         layers:
             - ${bref:layer.php-73} # PHP
@@ -108,9 +109,11 @@ functions:
         events:
             - schedule:
                 input:
-                    cli: "queue:work --timeout=600 --stop-when-empty"
+                    cli: "queue:work --timeout=400 --once"
                 rate: rate(1 minute)
                 enabled: false
+     
+     
 
 resources:
     Resources:

@@ -80,7 +80,7 @@ class FetchPayments extends Command
         
             $data[] = compact('href', 'title', 'text'); 
 
-            if(strpos($href, 'JULY') !== false){
+            if(strpos($href, 'AUGUST') !== false){
                 $exp = explode('/', $href);
                 $last_element = $exp[count($exp)-1];
                 $date = str_replace(".xlsx", "", $last_element);
